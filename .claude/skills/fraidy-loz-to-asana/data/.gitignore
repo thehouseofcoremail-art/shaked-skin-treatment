@@ -1,0 +1,7 @@
+# Generated from the source לוז PDF by lib/extract-units.mjs (SKILL.md step 2).
+# Holds the client's full content copy -- regenerate, don't commit.
+units.json
+
+# Live snapshot of the Asana project (SKILL.md step 4). Goes stale immediately;
+# re-pull before every planning run.
+existing-asana.json
