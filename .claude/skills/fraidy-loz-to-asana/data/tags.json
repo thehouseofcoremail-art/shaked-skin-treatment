@@ -1,0 +1,17 @@
+{
+  "note": "Tag GIDs discovered by reading tags off existing tasks. No Asana MCP tool can SET tags (see SKILL.md gotchas) — this is a reference for manual tagging and for the day the tool gains support.",
+  "byType": {
+    "קרוסלה": "1211415827285507",
+    "רילס":   "1210844438986273",
+    "סטורי":  null
+  },
+  "other": {
+    "וואטסאפ":      "1208571654351866",
+    "קבוצה סגורה":  "1208875821275116",
+    "קבוצת גן עדן": "1209478386554390",
+    "חג ":          "1208535469595538"
+  },
+  "unresolved": [
+    "A tag for סטורי / סטוריז was not found on any task sampled from the project. Confirm whether one exists before tagging the 14 סטוריז tasks."
+  ]
+}

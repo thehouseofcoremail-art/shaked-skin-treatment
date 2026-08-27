@@ -9,6 +9,13 @@ const TYPE = { K: 'קרוסלה', R: 'ריל', S: 'סטוריז', T: 'TikTok' };
 // Ranges appear too:         "T-08–T-10    ·המערה— סדרה ב-3 חלקים"
 const HEADER = /^([KRST]-\d{2})(?:\s*[–-]\s*([KRST]-\d{2}))?\s*[·:]?\s*(.*)$/;
 
+// Section banners between unit groups ("סטוריז8 רצפים", "TikTok · 18 יחידות",
+// "עמוד 1 ·60% — ..."). Without these, the LAST unit of a section swallows the
+// next section's banner into its body -- S-08 was absorbing the whole TikTok intro.
+// '^שיבוץ' also closes a unit: the catalog split anchors on 'ברמת אסטרטגיה',
+// which leaves the words 'שיבוץ ספטמבר —' dangling onto the final unit's body.
+const SECTION = /^(?:קרוסלות|רילסים|סטוריז|TikTok)\s*[·\d]|^עמוד\s*\d+\s*·\s*\d+%|^חדש\s*103FM|^שיבוץ\s/;
+
 // Everything after this heading is the weekly שיבוץ table, not unit definitions.
 // The same codes reappear there, so parsing past it yields phantom duplicate units.
 // Anchor on 'ברמת אסטרטגיה' -- the bare words 'שיבוץ ספטמבר' also appear in the cover title.
@@ -39,6 +46,8 @@ export function extractUnits(raw) {
         title: cleanTitle(rest),
         body: [],
       };
+    } else if (SECTION.test(line.trim())) {
+      if (cur) { units.push(cur); cur = null; } // section ended; stop collecting
     } else if (cur) {
       cur.body.push(line);
     }

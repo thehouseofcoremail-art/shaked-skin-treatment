@@ -118,13 +118,28 @@ The review table shows date, weekday, code, type, title, `📌` pinned-recurring
 ## Step 6 — write to Asana
 
 Show the plan to the user and get approval first — day-level dates are inferred.
-Then batch the `--json` tasks (Asana caps `create_tasks` at **50 per call**):
+Then batch the `--json` tasks:
 
 ```
 mcp__Asana__create_tasks
-  default_project = 1208559583775601
-  tasks = [ { name, due_on, notes }, … ]     # section_id 1208559583775616
+  default_project  = 1208559583775601
+  default_assignee = "me"                    # required — see below
+  tasks = [ { name, due_on, notes, section_id: "1208559583775616" }, … ]
 ```
+
+**Every task must be assigned.** The team's standing convention is that content
+tasks carry an owner; `default_assignee: "me"` covers a whole batch. To fix
+tasks already created unassigned, `mcp__Asana__update_tasks` takes up to 50
+`{task, assignee: "me"}` objects in one call.
+
+**Tags must be applied by hand.** Neither `create_tasks` nor `update_tasks`
+exposes a tags field, and no other Asana MCP tool sets one — the capability
+simply is not in the toolset. The project uses tags rather than custom fields
+(it has *no* custom fields at all), so after creating, select the new tasks in
+the Asana UI and apply the type tag in bulk. GIDs are in `data/tags.json`:
+`קרוסלה` `1211415827285507`, `רילס` `1210844438986273`. The task **name** is
+built as `<type> <code> · <title>` precisely so the type is filterable even
+before tags are on.
 
 ## Gotchas
 
@@ -151,6 +166,16 @@ mcp__Asana__create_tasks
   11–13.09 (week 2) per both `K-06` and Asana. Flag; never silently "fix".
 - **Recurring formats are invisible to the table.** `S-07` appears once per week
   row but is a standing Friday slot — it must expand to every Friday.
+- **The last unit of a section swallows the next banner.** Unit bodies run until
+  the next unit code, so `S-08` absorbed the entire TikTok section intro and
+  `T-18` picked up the dangling `שיבוץ ספטמבר —`. `SECTION` in
+  `extract-units.mjs` closes a unit on those banners; check any unit that is
+  last in its group after changing the regex.
+- **`create_tasks` accepts 50 tasks but the call truncates far earlier.** Hebrew
+  notes escape to ~6 bytes per character, so a batch of 8 full-copy tasks
+  (~26 KB encoded) is silently cut and rejected as unparseable JSON. Batch by
+  *encoded size*, not task count — 8 tasks worked repeatedly, 8 with the longest
+  carousel copy did not; drop to 4 when the notes are long.
 
 ## Troubleshooting
 
@@ -161,4 +186,6 @@ mcp__Asana__create_tasks
 | `pyo3_runtime.PanicException` on `import pypdf` | `pip install --upgrade cffi`. |
 | `UnicodeEncodeError: surrogates not allowed` | Per-page `.encode('utf-8','replace').decode('utf-8')`. |
 | Unit skipped `אין הגדרה בקטלוג` | Either a range member needing an alias, or a prose-only unit needing an `adHoc` entry. |
-| Asana rejects the batch | More than 50 tasks — split the array. |
+| `InputValidationError: could not be parsed as JSON` on create_tasks | The payload truncated. Halve the batch — it is size, not the 50-task cap. |
+| New tasks show no tag | Expected. No MCP tool sets tags; apply them in the Asana UI (`data/tags.json`). |
+| New tasks show no assignee | `default_assignee` was omitted; fix with `update_tasks`. |

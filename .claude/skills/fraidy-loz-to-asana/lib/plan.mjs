@@ -74,6 +74,20 @@ export function buildPlan() {
       if (presentCodes.has(code)) { skipped.push({ code, week: week.n, reason: 'כבר קיים באסנה' }); continue; }
 
       const item = { code, week: week.n, theme: week.theme, type: meta.type, title: meta.title, flag: f || null, aliasOf: meta.aliasOf || null };
+      // An event-relative unit (a countdown) ignores its week and expands into one
+      // task per step, dated off the anchor event. The לוז schedules these by week,
+      // which contradicts their own spec -- see data/flags.json.
+      const exp = sched.expand?.[code];
+      if (exp) {
+        const ev = sched.events[exp.anchorEvent];
+        for (const st of exp.steps) {
+          const d = parse(ev.date);
+          d.setUTCDate(d.getUTCDate() + st.offset);
+          pinned.push({ ...item, due_on: iso(d), step: st, anchor: ev });
+        }
+        continue;
+      }
+
       const rule = sched.weekly[code];
       if (rule) {
         const day = days.find(d => DOW[parse(d).getUTCDay()] === rule.day);
@@ -97,13 +111,17 @@ export function toAsanaTasks(planned, units, sched) {
     const head = [
       `יחידה ${p.code} · ${p.type}`,
       `שבוע ${p.week} — ${p.theme}`,
-      p.pinned ? `שיבוץ קבוע: ${p.pinned}` : 'תאריך היום הוצע אוטומטית מתוך שיבוץ ברמת שבוע.',
+      p.step
+        ? `שלב: ${p.step.label} (${p.step.offset >= 0 ? '+' : ''}${p.step.offset} ימים מ-${p.anchor.date} · ${p.anchor.title})\nקופי: ${p.step.copy}`
+        : p.pinned ? `שיבוץ קבוע: ${p.pinned}` : 'תאריך היום הוצע אוטומטית מתוך שיבוץ ברמת שבוע.',
       p.flag ? `⚠️ ${p.flag.issue}\nהצעה: ${p.flag.proposal}` : null,
       `מקור: ${sched.source}`,
     ].filter(Boolean).join('\n');
     const body = u?.body ? `\n\n${'—'.repeat(20)}\n${u.body}` : '';
     return {
-      name: `${p.type} ${p.code} · ${p.title}`.trim(),
+      name: (p.step
+        ? `${p.type} ${p.code} · ${p.title} — ${p.step.label}`
+        : `${p.type} ${p.code} · ${p.title}`).trim(),
       due_on: p.due_on,
       notes: (head + body).slice(0, 4000),
     };
@@ -120,19 +138,24 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     let week = null;
     const load = new Map();
     for (const t of existing.tasks) load.set(t.due_on, (load.get(t.due_on) || 0) + 1);
+    // Event-anchored units are dated outside their filed week, so grouping by
+    // p.week makes the header oscillate. Group by the week the date falls in.
+    const weekOf = d => sched.weeks.find(w => d >= w.from && d <= w.to);
     for (const p of planned) {
-      if (p.week !== week) { week = p.week; console.log(`\n── שבוע ${week}: ${p.theme}`); }
+      const w = weekOf(p.due_on);
+      if (w && w.n !== week) { week = w.n; console.log(`\n── שבוע ${week}: ${w.theme}`); }
       const d = parse(p.due_on);
       const before = load.get(p.due_on) || 0;
       console.log(
         `  ${p.due_on.slice(5)} ${HE_DOW[d.getUTCDay()]}  ${p.code.padEnd(9)} ${p.type.padEnd(7)} ${p.title.slice(0, 42).padEnd(44)}` +
-        `${p.pinned ? '📌' : '  '}${p.flag ? ' ⚠️' : ''}${before ? ` (+${before} קיימות)` : ''}`
+        `${p.pinned ? '📌' : p.step ? '🎯' : '  '}${p.flag && p.flag.severity !== 'resolved' ? ' ⚠️' : ''}` +
+        `${p.step ? ` [${p.step.label}]` : ''}${before ? ` (+${before} קיימות)` : ''}`
       );
     }
     console.log(`\n── דילוגים (${skipped.length})`);
     for (const s of skipped) console.log(`  ${s.code.padEnd(9)} שבוע ${s.week}  ${s.reason}`);
     console.log(`\n── התראות (${flags.length})`);
-    for (const f of flags) console.log(`  [${f.severity}] ${f.unit}: ${f.issue.slice(0, 110)}…`);
+    for (const f of flags) console.log(`  [${f.severity}] ${f.unit}: ${(f.severity === 'resolved' ? f.proposal : f.issue).slice(0, 110)}…`);
     console.log();
   }
 }
