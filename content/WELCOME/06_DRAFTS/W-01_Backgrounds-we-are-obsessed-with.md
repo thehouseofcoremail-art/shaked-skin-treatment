@@ -2,7 +2,7 @@
 
 **מותג:** Welcome — RSVP ואתרי חתונה
 **Canva:** https://www.canva.com/d/PoAUQ8ToOhdGAFf — `DAHT-KMXCwM` · 5 עמודים · 1080×1350
-**סטטוס:** מסגרת מוכנה. **חסרות התמונות** — צריך גרירה ידנית.
+**סטטוס:** טקסט, כיתוב ומפרט מוכנים. **חסרים הנכסים הוויזואליים** — ראו צ׳קליסט למטה.
 
 **רפרנס:** רצף שסופק 01.09.2026 — סוואצ'ים על תמונת חתונה אמיתית, כל אחד עם שם
 הסגנון מתחתיו, מונה בפינה. הפורמט הועתק, השמות והקיבוץ הם של הספרייה שלנו.
@@ -128,6 +128,75 @@ Botanical" במקום "אני רוצה משהו עם פרחים". זה הופך 
 | `your wedding in one word. pick from above.` | חיכוך אפס, בלי מחלוקת |
 | `screenshot the one you'd actually send.` | מייצר שמירות במקום תגובות |
 | `which one did you already send?` | לזוגות שכבר בתהליך — קהל חם יותר |
+
+## הכיתוב לפוסט
+
+> we've been staring at these for weeks.
+>
+> seven ways an invitation can feel
+> before anyone reads a single word on it.
+>
+> the funny part —
+> most couples don't disagree about the wedding.
+> they disagree about the paper.
+>
+> so: one of you said Botanical.
+> the other said Ornamental.
+>
+> settle it below.
+
+**השורה שלא נמצאת על אף שקף** היא *"most couples don't disagree about the wedding,
+they disagree about the paper"* — היא הסיבה לקרוא את הכיתוב ולא רק להחליק. השאר
+מהדהד את הקרוסלה בכוונה.
+
+**אין קריאה לפעולה.** רשימת הפיצ׳רים של Welcome עדיין לא מאומתת, ואי אפשר להבטיח
+משהו שלא אימתנו. השאלה עובדת טוב יותר לפוסט שכולו טעם.
+
+### טקסט חלופי (Alt text)
+
+מוסיפים בקאנבה או באינסטגרם לפני הפרסום. עוזר לנגישות ולחיפוש, וכמעט תמיד נשכח.
+
+| עמ׳ | Alt |
+|---|---|
+| 1 | Wedding photo with the words backgrounds we're obsessed with scattered across it |
+| 2 | Two invitation designs on grass, labelled Ornamental and Lace |
+| 3 | Three invitation designs on grass, labelled Botanical, Stripes and Gingham |
+| 4 | Two invitation designs on grass, labelled Damask and Scenic |
+| 5 | Text on a wedding photo asking which invitation style is yours |
+
+### האשטגים
+
+`אין לי ראיה למה ש-Welcome משתמשת בו בפועל.` לפני שמוסיפים — להסתכל על שני
+הפוסטים האחרונים ולעשות כמותם. אם אין קונבנציה קיימת, אלה רלוונטיים:
+
+`#weddinginvitations` · `#weddingstationery` · `#weddinginvites` ·
+`#חתונה` · `#הזמנותלחתונה` · `#מתחתנים`
+
+חמישה עד שמונה מספיק. בלוק של שלושים נראה כמו ספאם.
+
+---
+
+## צ׳קליסט להעלאה
+
+| # | מה | מי |
+|---|---|---|
+| 1 | ✅ טקסט בכל חמשת העמודים | בוצע |
+| 2 | ✅ המונים הוסרו מכל העמודים | בוצע — כולל השריד בעמוד 5 |
+| 3 | ✅ כיתוב, alt text, האשטגים | בוצע — למעלה |
+| 4 | ⬜ רקע לכל עמוד — תמונת חתונה | **את.** עמוד 2 כבר נעשה |
+| 5 | ⬜ סוואצ'ים בעמודים 2, 3, 4 | **את.** קואורדינטות בטבלה למעלה |
+| 6 | ⬜ מסכת קצה קרוע לסוואצ'ים | **את.** הדקה הכי משתלמת בפוסט |
+| 7 | ⬜ פונט המותג של Welcome | **את.** לחיצה אחת מתיק המותג |
+| 8 | ⬜ להחליט: הזמנות שלמות או קטעי דפוס | **את.** ההסבר למעלה |
+| 9 | ⬜ לאמת למי שייכת ספריית העיצובים | **את.** חוסם פרסום |
+
+**שורות 4–6 חוסמות אותי טכנית** — כלי ההעלאה של קאנבה מקבל רק כתובת ציבורית, ואני
+לא מעלה נכסים שלכם לרשת הפתוחה. כל השאר מוכן.
+
+**שורה 9 היא היחידה שחוסמת אותך.** אם הספרייה לא של Welcome, אי אפשר להציג אותה
+כשלנו — וזה שינוי של כל הפוסט, לא של שקף.
+
+---
 
 ## מה מכוון ומה חסר
 
