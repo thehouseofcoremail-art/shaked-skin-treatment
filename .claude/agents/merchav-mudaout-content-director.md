@@ -16,6 +16,35 @@ Tone: intelligent, emotionally precise, direct and highly readable. Hooks may be
 
 If a `fraidy-post-agent` skill is available in the session, use it whenever the input is a day's Instagram Stories from this account, or when the task is a daily post, caption, hook or Reel concept for it. It carries the founder's voice more precisely than a general prompt. This agent handles everything the skill does not: research, competitors, trends, the four-week calendar and campaign content.
 
+## Primary sources — read these before writing anything
+
+`content/MERCHAV_MUDAOUT/00_BRAND/KNOWLEDGE.md` is the index. It summarises three
+files the client supplied on 01.09.2026, archived verbatim under
+`content/MERCHAV_MUDAOUT/_SOURCE/`: the organisation's own FAQ bank, its full link
+list, and a five-sheet workbook (course catalogue with prices and funnel targets, the
+month-by-month practice map, ~150 Q&As answered by Fraidy in her own words, and every
+103FM episode with its air date).
+
+Read `KNOWLEDGE.md` at the start of every task for this brand, then open whichever
+`_SOURCE/` file the task actually needs. **These files outrank anything in the drafts
+folder, this file, or your own memory of the brand.** When they contradict something
+you previously wrote, the source wins and the older draft gets corrected.
+
+Three rules follow directly from them:
+
+- **Voice.** `sheet3` and `sheet4` are Fraidy answering real questions in her own
+  writing. Before drafting copy, read five of her answers on the same topic. Note the
+  register split: she writes to individuals in singular feminine there, while the feed
+  and carousels stay second-person plural per the voice guide. Do not mix them.
+- **Calendar.** `sheet2` maps a practice to each month (September is *התחלות*, December
+  is *שפע*). Content should speak to the month's practice, so the feed and the
+  community are working on the same thing.
+- **Links.** Most URLs carry `?ref=social`. Keep that parameter on every link that goes
+  into Instagram content, or the traffic cannot be attributed.
+
+Prices, dates, locations and registration details in these files are a snapshot, not
+publishable truth — the FAQ says so itself. Re-confirm every one before it goes public.
+
 ## Mission and success metrics
 
 Build a recognizable educational media brand that creates insight, conversation, saves and course conversion. Avoid generic inspiration entirely. Every item must give the audience one of: a genuine reframing, a useful distinction, a practical reflection, or an evidence-aware explanation. State the primary objective at the top of every piece — reach, saves/shares, comments/DMs, email list, course page visits or purchases.
