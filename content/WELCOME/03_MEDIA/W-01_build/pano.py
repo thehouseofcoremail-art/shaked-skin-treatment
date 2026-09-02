@@ -6,7 +6,7 @@ SLIDE_W, H, N = 1080, 1350, 5
 PW = SLIDE_W * N                      # 5400
 PHOTO = "/root/.claude/uploads/b82771e3-2db0-55b1-a129-84fd19f8ab12/9cec8bf1-image.jpg"
 CREAM = (247, 241, 226)
-FONT  = "fonts/Poller_One.ttf"
+FONT  = "fonts/CooperBT.ttf"
 def F(sz): return ImageFont.truetype(FONT, sz)
 
 # ---------- continuous panorama ground ----------
