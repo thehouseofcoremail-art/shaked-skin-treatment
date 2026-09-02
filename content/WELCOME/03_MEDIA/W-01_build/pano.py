@@ -6,7 +6,7 @@ SLIDE_W, H, N = 1080, 1350, 5
 PW = SLIDE_W * N                      # 5400
 PHOTO = "/root/.claude/uploads/b82771e3-2db0-55b1-a129-84fd19f8ab12/9cec8bf1-image.jpg"
 CREAM = (247, 241, 226)
-FONT  = "fonts/CooperBT.ttf"
+FONT  = "fonts/Lora.ttf"
 def F(sz): return ImageFont.truetype(FONT, sz)
 
 # ---------- continuous panorama ground ----------
@@ -86,8 +86,8 @@ def txt(canvas, s, x, y, size, anchor="la"):
     f = F(size)
     lay = Image.new("RGBA", canvas.size, (0,0,0,0))
     d = ImageDraw.Draw(lay)
-    d.text((x, y), s, font=f, fill=(10, 14, 8, 150), anchor=anchor)
-    lay = lay.filter(ImageFilter.GaussianBlur(9))
+    d.text((x, y), s, font=f, fill=(10, 14, 8, 96), anchor=anchor)
+    lay = lay.filter(ImageFilter.GaussianBlur(14))
     canvas.paste(Image.alpha_composite(canvas.convert("RGBA"), lay).convert("RGB"), (0,0))
     d2 = ImageDraw.Draw(canvas)
     d2.text((x, y), s, font=f, fill=CREAM, anchor=anchor)
@@ -97,10 +97,10 @@ pano = panorama()
 S1, S2, S3, S4, S5 = [i*SLIDE_W for i in range(5)]
 
 # slide 1 — title over the couple
-txt(pano, "backgrounds", S1+96,  372, 92)
-txt(pano, "we're",       S1+612, 520, 92)
-txt(pano, "obsessed",    S1+150, 806, 92)
-txt(pano, "with",        S1+656, 954, 92)
+txt(pano, "save the date", S1+150, 300, 78)
+txt(pano, "we're",         S1+660, 560, 78)
+txt(pano, "obsessed",      S1+96,  838, 78)
+txt(pano, "with",          S1+640, 1080, 78)
 
 # slide 2 — Ornamental / Lace
 place(pano, "Ornamental", (S2+116, 356, 392, 588), 21)
