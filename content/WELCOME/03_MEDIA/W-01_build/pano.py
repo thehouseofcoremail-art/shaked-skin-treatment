@@ -97,10 +97,10 @@ pano = panorama()
 S1, S2, S3, S4, S5 = [i*SLIDE_W for i in range(5)]
 
 # slide 1 — title over the couple
-txt(pano, "save the date", S1+150, 300, 78)
-txt(pano, "we're",         S1+660, 560, 78)
-txt(pano, "obsessed",      S1+96,  838, 78)
-txt(pano, "with",          S1+640, 1080, 78)
+txt(pano, "backgrounds", S1+130, 330, 86)
+txt(pano, "we're",       S1+660, 570, 86)
+txt(pano, "obsessed",    S1+96,  838, 86)
+txt(pano, "with",        S1+648, 1074, 86)
 
 # slide 2 — Ornamental / Lace
 place(pano, "Ornamental", (S2+116, 356, 392, 588), 21)

@@ -29,7 +29,7 @@ Botanical" במקום "אני רוצה משהו עם פרחים". זה הופך 
 
 | עמ׳ | תוכן |
 |---|---|
-| 1 | **save the date / we're / obsessed / with** — פזור על פני הפריים, מעל תמונת החתונה |
+| 1 | **backgrounds / we're / obsessed / with** — פזור על פני הפריים, מעל תמונת החתונה |
 | 2 | Ornamental · Lace |
 | 3 | Botanical · Stripes · Gingham |
 | 4 | Damask · Scenic |
@@ -155,10 +155,11 @@ Libre Baskerville רחב מדי, EB Garamond קליל מדי.
 ההילה מתחת לטקסט הופחתה (`alpha 96`, טשטוש 14) — בדוגמה שלה הטקסט יושב נקי על
 התמונה, ולא רציתי מסגרת כהה סביבו.
 
+**המילה הפותחת: `backgrounds`.** נוסתה גם `save the date` לפי דוגמת הלקוחה
+והוחזרה לבקשתה.
+
 ## הכיתוב לפוסט
 
-> save the dates we're obsessed with.
->
 > we've been staring at these for weeks.
 >
 > seven ways an invitation can feel
