@@ -12,7 +12,6 @@ name, class names, numerals. Frank Ruhl Libre carries the Hebrew.
 """
 import os
 from PIL import Image, ImageDraw, ImageFont
-from bidi.algorithm import get_display
 
 HERE  = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "fonts")
@@ -35,28 +34,35 @@ HE_L, HE_M, HE_B = "FrankRuhl-300", "FrankRuhl-500", "FrankRuhl-700"
 EN_L, EN_B       = "Cormorant-300", "Cormorant-600"
 
 
-def vis(s):
-    """Hebrew is authored logically; PIL draws visually and has no bidi engine."""
-    return get_display(s)
+def is_rtl(s):
+    return any(0x0590 <= ord(c) <= 0x05FF for c in s)
+
+
+def _dir(s):
+    return "rtl" if is_rtl(s) else "ltr"
 
 
 def measure(s, font, track=0):
-    v = vis(s)
-    w = font.getlength(v)
-    return w + track * (len(v) - 1) if track and len(v) > 1 else w
+    w = font.getlength(s, direction=_dir(s))
+    if track and not is_rtl(s) and len(s) > 1:
+        w += track * (len(s) - 1)
+    return w
 
 
 def txt(d, s, x, y, font, fill, track=0, align="center"):
-    v = vis(s)
+    """This Pillow is built with Raqm, so ImageDraw.text applies bidi and
+    shaping itself. Pass text in LOGICAL order — reordering it first reverses
+    it twice and the line renders mirrored. Hebrew is never drawn glyph by
+    glyph for tracking either, since that bypasses the shaper the same way."""
     w = measure(s, font, track)
     if   align == "center": x -= w / 2
     elif align == "right":  x -= w
-    if not track:
-        d.text((x, y), v, font=font, fill=fill)
+    if track and not is_rtl(s):
+        for ch in s:
+            d.text((x, y), ch, font=font, fill=fill)
+            x += font.getlength(ch) + track
         return w
-    for ch in v:
-        d.text((x, y), ch, font=font, fill=fill)
-        x += font.getlength(ch) + track
+    d.text((x, y), s, font=font, fill=fill, direction=_dir(s))
     return w
 
 

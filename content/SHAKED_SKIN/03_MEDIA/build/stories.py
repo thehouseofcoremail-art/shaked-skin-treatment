@@ -8,8 +8,6 @@ recorded in 00_BRAND/BRAND_BRIEF.md sections 2 / 2b. Do not invent colours.
 """
 import os, sys
 from PIL import Image, ImageDraw, ImageFont
-from bidi.algorithm import get_display
-
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "fonts")
 
@@ -31,30 +29,41 @@ def F(weight, size):
     return _cache[key]
 
 
-def vis(s):
-    """Hebrew is stored logically and drawn visually; PIL has no bidi engine."""
-    return get_display(s)
+def is_rtl(s):
+    """Any Hebrew codepoint makes the run right-to-left."""
+    return any(0x0590 <= ord(c) <= 0x05FF for c in s)
+
+
+def _dir(s):
+    return "rtl" if is_rtl(s) else "ltr"
 
 
 def measure(s, font, track=0):
-    v = vis(s)
-    w = font.getlength(v)
-    if track and len(v) > 1:
-        w += track * (len(v) - 1)
+    w = font.getlength(s, direction=_dir(s))
+    # Tracking is only ever applied to the Latin chrome, which is drawn glyph
+    # by glyph. Hebrew is handed to the shaper whole, so it carries no tracking.
+    if track and not is_rtl(s) and len(s) > 1:
+        w += track * (len(s) - 1)
     return w
 
 
 def draw_text(d, s, cx, y, font, fill, track=0, align="center"):
-    """y is the top of the line box. cx is the centre (or left edge if align='left')."""
-    v = vis(s)
+    """y is the top of the line box. cx is the centre (or left edge if align='left').
+
+    This Pillow is built with Raqm, so ImageDraw.text runs the bidi algorithm
+    and the shaper itself. Text must therefore be passed in LOGICAL order —
+    reordering it first (with python-bidi, say) reverses it twice and the line
+    comes out mirrored. Hebrew is also never drawn glyph by glyph for tracking,
+    because that bypasses the shaper and breaks the ordering the same way.
+    """
     w = measure(s, font, track)
     x = cx - w / 2 if align == "center" else cx
-    if not track:
-        d.text((x, y), v, font=font, fill=fill)
+    if track and not is_rtl(s):
+        for ch in s:
+            d.text((x, y), ch, font=font, fill=fill)
+            x += font.getlength(ch) + track
         return w
-    for ch in v:
-        d.text((x, y), ch, font=font, fill=fill)
-        x += font.getlength(ch) + track
+    d.text((x, y), s, font=font, fill=fill, direction=_dir(s))
     return w
 
 
