@@ -164,7 +164,9 @@ BODY   = F(LIGHT, 44)
 NOTE   = F(LIGHT, 38)
 SUM    = F(LIGHT, 46)
 
-FRAMES = {
+DAYS = {}
+
+DAYS[3] = {
 1: [("h", "אותם מוצרים בדיוק.", HEAD_C, INK, 1.2),
     ("h", "סדר אחר.",           HEAD_C, INK, 1.2),
     ("h", "תוצאה אחרת.",        HEAD_C, INK, 1.2)],
@@ -208,11 +210,62 @@ FRAMES = {
     ("b", "שמרי. מחר — יום רביעי.", NOTE, MUTE)],
 }
 
+# Day 4 keeps day 3's grammar exactly — heading, rule, body, and a summary that
+# repeats the three markers — so four days in, the series reads as one object.
+DAYS[4] = {
+1: [("h", "טיפול אחד",            HEAD_C, INK, 1.2),
+    ("h", "לא נמדד ביום שאחריו.", HEAD_C, INK, 1.2)],
+
+2: [("h", "שבוע", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "לחות. רכות. זוהר.", BODY, INK),
+    ("gap", 18),
+    ("b", "אלה מגיעים מהר,", BODY, INK),
+    ("b", "כי זה מים — לא מבנה.", BODY, INK)],
+
+3: [("h", "חודש", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "מחזור התחדשות אחד.", BODY, INK),
+    ("gap", 18),
+    ("b", "כאן כבר אפשר לדעת", BODY, INK),
+    ("b", "אם הכיוון נכון.", BODY, INK),
+    ("gap", 40),
+    ("b", "והמחזור מתארך עם הגיל.", NOTE, MUTE)],
+
+4: [("h", "שלושה חודשים", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "פיגמנטציה. צלקות.", BODY, INK),
+    ("gap", 18),
+    ("b", "אלה זזות לאט —", BODY, INK),
+    ("b", "וזה לא סימן שלא עובד.", BODY, INK)],
+
+5: [("h", "יום רביעי", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "שבוע — לחות ורכות",              SUM, INK),
+    ("b", "חודש — מחזור התחדשות אחד",       SUM, INK),
+    ("b", "שלושה חודשים — פיגמנטציה וצלקות", SUM, INK),
+    ("gap", 44),
+    ("rule", 34, 120),
+    ("gap", 20),
+    ("b", "שמרי. מחר — יום חמישי.", NOTE, MUTE)],
+}
+
 if __name__ == "__main__":
-    out = os.path.join(HERE, "..", "DAY03")
-    out = os.path.abspath(out)
+    import sys
+    day = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+    if day not in DAYS:
+        sys.exit(f"no frames written for day {day}; days available: {sorted(DAYS)}")
+    out = os.path.abspath(os.path.join(HERE, "..", f"DAY{day:02d}"))
     os.makedirs(out, exist_ok=True)
-    for n in sorted(FRAMES):
-        p = os.path.join(out, f"shaked-day03-{n:02d}.png")
-        render(FRAMES[n], p, day=3, anchor=(n != 1))
+    for n in sorted(DAYS[day]):
+        p = os.path.join(out, f"shaked-day{day:02d}-{n:02d}.png")
+        render(DAYS[day][n], p, day=day, anchor=(n != 1))
         print(p)
