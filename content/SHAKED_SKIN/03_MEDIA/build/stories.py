@@ -75,13 +75,17 @@ def chrome(im, d, day=3, total=14):
 
 
 def counter(d, day=3, total=14):
-    """Fourteen ticks along the foot: what you have, and what you missed."""
-    gap, tw, th = 10, 0, 5
+    """Fourteen ticks along the foot: what you have, and what you missed.
+
+    The series is read right to left, so day 1 is the rightmost tick and the
+    filled run grows leftward. Filling from the left reads as counting down.
+    """
+    gap, th = 10, 5
     tw = (W - 2 * MARGIN - gap * (total - 1)) / total
     y = H - SAFE_BOT - 26
     for i in range(total):
         x0 = MARGIN + i * (tw + gap)
-        on = i < day
+        on = i >= total - day
         d.rounded_rectangle([x0, y, x0 + tw, y + th], radius=th / 2,
                             fill=INK if on else (224, 222, 216))
 
