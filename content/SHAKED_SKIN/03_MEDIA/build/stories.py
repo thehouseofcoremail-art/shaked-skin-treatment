@@ -271,55 +271,57 @@ DAYS[4] = {
     ("b", "שמרי. מחר — יום חמישי.", NOTE, MUTE)],
 }
 
-# Day 6 — the question day. Frame 4 is deliberately empty below the copy:
-# the Instagram question sticker is placed there at upload time. It is a
-# native IG sticker, not an element, so it cannot live in the file.
+# Day 6 — the strong-peel myth, carried by a poll.
+# Not a question box: the account has ~95 followers, and a question box that
+# comes back with two answers reads as ignored. A poll always looks answered.
+# Frame 2 is deliberately empty below the copy — that is where the poll
+# sticker goes. It is a native IG sticker, not an element.
+# No quotation marks anywhere: a leading straight quote on a Hebrew line
+# renders on the wrong side, same family as the digits rule.
 DAYS[6] = {
-1: [("h", "היום אני לא מלמדת.", HEAD_C, INK, 1.2),
-    ("h", "היום אני שואלת.",  HEAD_C, INK, 1.2)],
+1: [("h", "יש טיפול שמרגישים.", HEAD_C, INK, 1.2),
+    ("h", "ויש טיפול שרואים.",  HEAD_C, INK, 1.2)],
 
-2: [("h", "למה היום", HEAD_I, INK, 0.4),
+2: [("h", "השאלה", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "החג מתקרב,", BODY, INK),
-    ("b", "וכל אחת מחליטה עכשיו", BODY, INK),
-    ("b", "מה היא עושה עם העור.", BODY, INK),
-    ("gap", 18),
-    ("b", "עדיף להחליט עם תשובה.", BODY, INK)],
+    ("b", "מה שווה לך יותר —", BODY, INK),
+    ("b", "להרגיש שקרה משהו,", BODY, INK),
+    ("b", "או לראות שקרה משהו?", BODY, INK)],
 
-3: [("h", "אין שאלה קטנה", HEAD_I, INK, 0.4),
+3: [("h", "המיתוס", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "פצעון אחד שחוזר.", BODY, INK),
-    ("b", "כתם שלא יורד.", BODY, INK),
-    ("b", "משהו שמביך לשאול בקול.", BODY, INK),
+    ("b", "ככל שהפילינג חזק יותר,", BODY, INK),
+    ("b", "כך התוצאה טובה יותר.", BODY, INK),
     ("gap", 18),
-    ("b", "הכול נחשב.", BODY, INK)],
+    ("b", "זה לא נכון.", BODY, INK)],
 
-4: [("h", "השאלה", HEAD_I, INK, 0.4),
+4: [("h", "למה", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "מה הכי מטריד אותך", BODY, INK),
-    ("b", "בעור עכשיו?", BODY, INK),
+    ("b", "עור אדום וקלוף הוא לא", BODY, INK),
+    ("b", "סימן שזה עבד.", BODY, INK),
     ("gap", 18),
-    ("b", "חוץ ממני אף אחד", BODY, INK),
-    ("b", "לא רואה מי שאלה.", BODY, INK)],
+    ("b", "זה סימן שמחסום העור נפגע —", BODY, INK),
+    ("b", "והוא זה שאחראי על הזוהר.", BODY, INK)],
 
 5: [("h", "יום שישי", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "היום אין כלל.", SUM, INK),
-    ("b", "יש שאלה.",       SUM, INK),
+    ("b", "עוצמה היא לא תוצאה.",           SUM, INK),
+    ("b", "אדמומיות היא נזק, לא הוכחה.",  SUM, INK),
     ("gap", 18),
-    ("b", "כתבי לי בתיבה.", SUM, INK),
+    ("b", "שלחי את זה למי שמתכננת",       SUM, INK),
+    ("b", "פילינג לפני החג.",             SUM, INK),
     ("gap", 44),
     ("rule", 34, 120),
     ("gap", 20),
-    ("b", "מחר — יום שביעי, אני עונה על הכול.", NOTE, MUTE)],
+    ("b", "מחר — יום שביעי.", NOTE, MUTE)],
 }
 
 if __name__ == "__main__":
