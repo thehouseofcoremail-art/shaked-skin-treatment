@@ -271,53 +271,67 @@ DAYS[4] = {
     ("b", "שמרי. מחר — יום חמישי.", NOTE, MUTE)],
 }
 
-# Day 6 — the strong-peel myth, carried by a poll.
-# Not a question box: the account has ~95 followers, and a question box that
-# comes back with two answers reads as ignored. A poll always looks answered.
+# Day 6 — SPF in September, carried by a poll.
+#
+# Two earlier versions were rejected and both rejections are load-bearing:
+#   1. A question box. The account has ~95 followers; a box that comes back
+#      with two answers reads as ignored, and the closing frame promised
+#      answers the next day. A poll cannot look ignored.
+#   2. The strong-peel myth ("redness means the barrier was damaged, not that
+#      it worked"). That claim collides head-on with the Dermapen, which
+#      works by controlled micro-injury and leaves the skin red — a client
+#      would read her own normal post-treatment redness as damage. The line
+#      is Shaked's own, but it cannot stand without the controlled-vs-
+#      uncontrolled distinction, and that requires detailing microneedling,
+#      which is blocked until the contraindication list exists.
+#
+# SPF has no such collision: it protects the result of a treatment rather
+# than casting doubt on it.
+#
 # Frame 2 is deliberately empty below the copy — that is where the poll
 # sticker goes. It is a native IG sticker, not an element.
 # No quotation marks anywhere: a leading straight quote on a Hebrew line
 # renders on the wrong side, same family as the digits rule.
 DAYS[6] = {
-1: [("h", "יש טיפול שמרגישים.", HEAD_C, INK, 1.2),
-    ("h", "ויש טיפול שרואים.",  HEAD_C, INK, 1.2)],
+1: [("h", "ספטמבר.",              HEAD_C, INK, 1.2),
+    ("h", "והשמש עוד לא סיימה.", HEAD_C, INK, 1.2)],
 
 2: [("h", "השאלה", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "מה שווה לך יותר —", BODY, INK),
-    ("b", "להרגיש שקרה משהו,", BODY, INK),
-    ("b", "או לראות שקרה משהו?", BODY, INK)],
+    ("b", "עכשיו כשהקיץ נגמר —", BODY, INK),
+    ("b", "את עדיין מורחת מסנן", BODY, INK),
+    ("b", "כל בוקר?", BODY, INK)],
 
-3: [("h", "המיתוס", HEAD_I, INK, 0.4),
+3: [("h", "הקרינה", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "ככל שהפילינג חזק יותר,", BODY, INK),
-    ("b", "כך התוצאה טובה יותר.", BODY, INK),
+    ("b", "לא נעלמת עם סוף אוגוסט.", BODY, INK),
     ("gap", 18),
-    ("b", "זה לא נכון.", BODY, INK)],
+    ("b", "גם בספטמבר.", BODY, INK),
+    ("b", "גם בעננים.", BODY, INK)],
 
-4: [("h", "למה", HEAD_I, INK, 0.4),
+4: [("h", "למה עכשיו", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "עור אדום וקלוף הוא לא", BODY, INK),
-    ("b", "סימן שזה עבד.", BODY, INK),
+    ("b", "כל מה שאת עושה לעור", BODY, INK),
+    ("b", "לקראת החג נמדד בחודשים.", BODY, INK),
     ("gap", 18),
-    ("b", "זה סימן שמחסום העור נפגע —", BODY, INK),
-    ("b", "והוא זה שאחראי על הזוהר.", BODY, INK)],
+    ("b", "מסנן הוא מה שמונע", BODY, INK),
+    ("b", "מהעבודה הזאת להימחק.", BODY, INK)],
 
 5: [("h", "יום שישי", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "עוצמה היא לא תוצאה.",           SUM, INK),
-    ("b", "אדמומיות היא נזק, לא הוכחה.",  SUM, INK),
+    ("b", "הקרינה לא לוקחת חופש",      SUM, INK),
+    ("b", "בספטמבר.",                  SUM, INK),
     ("gap", 18),
-    ("b", "שלחי את זה למי שמתכננת",       SUM, INK),
-    ("b", "פילינג לפני החג.",             SUM, INK),
+    ("b", "שלחי את זה למי שהחביאה",   SUM, INK),
+    ("b", "את המסנן עם הבגד ים.",     SUM, INK),
     ("gap", 44),
     ("rule", 34, 120),
     ("gap", 20),
