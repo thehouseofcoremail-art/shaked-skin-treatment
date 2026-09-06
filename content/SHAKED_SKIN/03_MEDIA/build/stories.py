@@ -271,6 +271,57 @@ DAYS[4] = {
     ("b", "שמרי. מחר — יום חמישי.", NOTE, MUTE)],
 }
 
+# Day 6 — the question day. Frame 4 is deliberately empty below the copy:
+# the Instagram question sticker is placed there at upload time. It is a
+# native IG sticker, not an element, so it cannot live in the file.
+DAYS[6] = {
+1: [("h", "היום אני לא מלמדת.", HEAD_C, INK, 1.2),
+    ("h", "היום אני שואלת.",  HEAD_C, INK, 1.2)],
+
+2: [("h", "למה היום", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "החג מתקרב,", BODY, INK),
+    ("b", "וכל אחת מחליטה עכשיו", BODY, INK),
+    ("b", "מה היא עושה עם העור.", BODY, INK),
+    ("gap", 18),
+    ("b", "עדיף להחליט עם תשובה.", BODY, INK)],
+
+3: [("h", "אין שאלה קטנה", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "פצעון אחד שחוזר.", BODY, INK),
+    ("b", "כתם שלא יורד.", BODY, INK),
+    ("b", "משהו שמביך לשאול בקול.", BODY, INK),
+    ("gap", 18),
+    ("b", "הכול נחשב.", BODY, INK)],
+
+4: [("h", "השאלה", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "מה הכי מטריד אותך", BODY, INK),
+    ("b", "בעור עכשיו?", BODY, INK),
+    ("gap", 18),
+    ("b", "חוץ ממני אף אחד", BODY, INK),
+    ("b", "לא רואה מי שאלה.", BODY, INK)],
+
+5: [("h", "יום שישי", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "היום אין כלל.", SUM, INK),
+    ("b", "יש שאלה.",       SUM, INK),
+    ("gap", 18),
+    ("b", "כתבי לי בתיבה.", SUM, INK),
+    ("gap", 44),
+    ("rule", 34, 120),
+    ("gap", 20),
+    ("b", "מחר — יום שביעי, אני עונה על הכול.", NOTE, MUTE)],
+}
+
 if __name__ == "__main__":
     import sys
     day = int(sys.argv[1]) if len(sys.argv) > 1 else 3
