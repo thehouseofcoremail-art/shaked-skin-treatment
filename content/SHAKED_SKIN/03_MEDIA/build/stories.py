@@ -271,67 +271,70 @@ DAYS[4] = {
     ("b", "שמרי. מחר — יום חמישי.", NOTE, MUTE)],
 }
 
-# Day 6 — SPF in September, carried by a poll.
+# Day 6 — the deep clean: not pampering, not punishment. Poll-driven.
 #
-# Two earlier versions were rejected and both rejections are load-bearing:
-#   1. A question box. The account has ~95 followers; a box that comes back
-#      with two answers reads as ignored, and the closing frame promised
-#      answers the next day. A poll cannot look ignored.
-#   2. The strong-peel myth ("redness means the barrier was damaged, not that
-#      it worked"). That claim collides head-on with the Dermapen, which
-#      works by controlled micro-injury and leaves the skin red — a client
-#      would read her own normal post-treatment redness as damage. The line
-#      is Shaked's own, but it cannot stand without the controlled-vs-
-#      uncontrolled distinction, and that requires detailing microneedling,
-#      which is blocked until the contraindication list exists.
+# Three earlier versions were rejected. All three rejections are load-bearing:
+#   1. A question box. ~95 followers; a box that returns two answers reads as
+#      ignored, and the closing frame promised answers the next day.
+#   2. The strong-peel myth (redness = damaged barrier). Collides head-on with
+#      the Dermapen, which works by controlled micro-injury and leaves the
+#      skin red. Blocked until the contraindication list allows drawing the
+#      controlled-injury vs damage distinction.
+#   3. SPF in September. A near-duplicate of an existing unit —
+#      06_DRAFTS/SHAKED_2026-08-27_stories_sunscreen-daily.md, six frames,
+#      same "גם בעננים" line, same poll. Generic education is the weakest
+#      thing a 95-follower account can post; it competes with everyone.
 #
-# SPF has no such collision: it protects the result of a treatment rather
-# than casting doubt on it.
+# ALWAYS grep 06_DRAFTS and the whole client folder for the topic before
+# choosing one. That check is what would have caught version 3.
+#
+# This version is her entry treatment and her own positioning line, unused
+# until now (DAHTtayM4q0 p5), and it argues against the device-and-acid hype
+# that fills the category — which is something only she can say.
 #
 # Frame 2 is deliberately empty below the copy — that is where the poll
 # sticker goes. It is a native IG sticker, not an element.
 # No quotation marks anywhere: a leading straight quote on a Hebrew line
 # renders on the wrong side, same family as the digits rule.
 DAYS[6] = {
-1: [("h", "ספטמבר.",              HEAD_C, INK, 1.2),
-    ("h", "והשמש עוד לא סיימה.", HEAD_C, INK, 1.2)],
+1: [("h", "לפני המכשירים.", HEAD_C, INK, 1.2),
+    ("h", "לפני החומצות.",  HEAD_C, INK, 1.2)],
 
 2: [("h", "השאלה", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "עכשיו כשהקיץ נגמר —", BODY, INK),
-    ("b", "את עדיין מורחת מסנן", BODY, INK),
-    ("b", "כל בוקר?", BODY, INK)],
+    ("b", "ניקוי עור בשבילך —", BODY, INK),
+    ("b", "פינוק או עונש?", BODY, INK)],
 
-3: [("h", "הקרינה", HEAD_I, INK, 0.4),
+3: [("h", "התשובה", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "לא נעלמת עם סוף אוגוסט.", BODY, INK),
+    ("b", "לא פינוק.", BODY, INK),
+    ("b", "ולא עונש.", BODY, INK),
     ("gap", 18),
-    ("b", "גם בספטמבר.", BODY, INK),
-    ("b", "גם בעננים.", BODY, INK)],
+    ("b", "זו עבודה.", BODY, INK)],
 
-4: [("h", "למה עכשיו", HEAD_I, INK, 0.4),
+4: [("h", "למה קודם", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "כל מה שאת עושה לעור", BODY, INK),
-    ("b", "לקראת החג נמדד בחודשים.", BODY, INK),
+    ("b", "הוצאת שחורים נכונה", BODY, INK),
+    ("b", "היא הבסיס.", BODY, INK),
     ("gap", 18),
-    ("b", "מסנן הוא מה שמונע", BODY, INK),
-    ("b", "מהעבודה הזאת להימחק.", BODY, INK)],
+    ("b", "עליה נבנה כל השאר —", BODY, INK),
+    ("b", "מכשירים, חומצות, סדרות.", BODY, INK)],
 
 5: [("h", "יום שישי", HEAD_I, INK, 0.4),
     ("gap", 34),
     ("rule", 34, 120),
     ("gap", 30),
-    ("b", "הקרינה לא לוקחת חופש",      SUM, INK),
-    ("b", "בספטמבר.",                  SUM, INK),
+    ("b", "לא פינוק. לא עונש.",        SUM, INK),
+    ("b", "הבסיס.",                     SUM, INK),
     ("gap", 18),
-    ("b", "שלחי את זה למי שהחביאה",   SUM, INK),
-    ("b", "את המסנן עם הבגד ים.",     SUM, INK),
+    ("b", "בואי נבדוק מה העור שלך",    SUM, INK),
+    ("b", "צריך לפני החג — כתבי לי.",  SUM, INK),
     ("gap", 44),
     ("rule", 34, 120),
     ("gap", 20),
