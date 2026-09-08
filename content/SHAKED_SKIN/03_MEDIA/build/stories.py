@@ -341,6 +341,65 @@ DAYS[6] = {
     ("b", "מחר — יום שביעי.", NOTE, MUTE)],
 }
 
+
+# Day 10 — four days out: what is still on the table, and what is not.
+# Direction from Romy: a beauty treatment, something that leaves no marks.
+#
+# The frames deliberately do NOT name a treatment and do NOT state how many
+# days before an event each treatment needs. Both are facts only Shaked has,
+# and TREATMENTS.md still marks the timings UNKNOWN. Frame 4 routes that
+# decision to her instead of inventing it.
+#
+# Frame 2 is deliberately empty below the copy — the poll sticker goes there
+# (זוהר לחג · תהליך). It also segments her DMs: whoever taps "זוהר לחג" is
+# ready to book this week.
+DAYS[10] = {
+1: [("h", "עוד אפשר.",      HEAD_C, INK, 1.2),
+    ("h", "רק לא כל דבר.", HEAD_C, INK, 1.2)],
+
+2: [("h", "השאלה", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "מה את מחפשת עכשיו —", BODY, INK),
+    ("b", "זוהר לחג,", BODY, INK),
+    ("b", "או תהליך לטווח ארוך?", BODY, INK)],
+
+3: [("h", "הכלל", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "לפני אירוע לא מנסים", BODY, INK),
+    ("b", "משהו חדש על העור.", BODY, INK),
+    ("gap", 18),
+    ("b", "זה לא הזמן לגלות", BODY, INK),
+    ("b", "איך את מגיבה.", BODY, INK)],
+
+4: [("h", "מה כן", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "טיפול שמאיר ומרענן", BODY, INK),
+    ("b", "ולא משאיר סימנים.", BODY, INK),
+    ("gap", 18),
+    ("b", "איזה בדיוק — תלוי בעור", BODY, INK),
+    ("b", "ובכמה ימים נשארו.", BODY, INK)],
+
+5: [("h", "יום עשירי", HEAD_I, INK, 0.4),
+    ("gap", 34),
+    ("rule", 34, 120),
+    ("gap", 30),
+    ("b", "עוד אפשר — רק לא כל דבר.",        SUM, INK),
+    ("b", "בוחרים מה שלא משאיר סימנים.",    SUM, INK),
+    ("gap", 18),
+    ("b", "כתבי לי מה מתוכנן ומתי,",        SUM, INK),
+    ("b", "ונתאים.",                         SUM, INK),
+    ("gap", 44),
+    ("rule", 34, 120),
+    ("gap", 20),
+    ("b", "מחר — יום אחד עשר. שלושה ימים בלבד לערב החג!", NOTE, MUTE)],
+}
+
 if __name__ == "__main__":
     import sys
     day = int(sys.argv[1]) if len(sys.argv) > 1 else 3
