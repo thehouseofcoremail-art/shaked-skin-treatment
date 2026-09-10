@@ -1,0 +1,13 @@
+# Build output from the render scripts under content/*/03_MEDIA/build/.
+# The rendered PNGs are committed on purpose — they are the deliverable.
+# Everything below is not.
+__pycache__/
+*.py[cod]
+
+# Installer payloads. A wheel was committed to the repository root once
+# (fonttools, 5.2 MB) while setting up the Hebrew font merge. Fonts belong in
+# the repo; the tools that build them do not.
+*.whl
+*.egg-info/
+
+.DS_Store
