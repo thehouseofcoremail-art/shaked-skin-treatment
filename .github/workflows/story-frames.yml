@@ -1,0 +1,66 @@
+# Renders the Shaked story frames for one day and hands them back as a
+# downloadable artifact. Run it from the Actions tab: pick the day, hit Run.
+#
+# Why this exists: content/SHAKED_SKIN/03_MEDIA/build/stories.py is the only
+# thing in this repo that produces files. Everything else is documentation.
+name: Story frames — Shaked
+
+on:
+  workflow_dispatch:
+    inputs:
+      day:
+        description: 'Day number, e.g. 10. Must be a day that exists in stories.py.'
+        default: '10'
+        required: true
+        type: string
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --upgrade pip Pillow
+
+      # Hebrew is the whole point of these frames, and Pillow renders it
+      # correctly only when it is built against Raqm (harfbuzz + fribidi).
+      # Without Raqm, ImageDraw.text does no bidi at all and every Hebrew line
+      # comes out reversed — frames that look finished but are unusable. Fail
+      # here, loudly, rather than upload mirrored artwork.
+      - name: Verify Hebrew shaping is available
+        run: |
+          python - <<'PY'
+          import sys
+          from PIL import features, __version__
+          print("Pillow", __version__, "· freetype", features.version("freetype2"))
+          if not features.check("raqm"):
+              sys.exit(
+                  "Pillow here has no Raqm (harfbuzz + fribidi), so it cannot do "
+                  "bidi or shaping. Every Hebrew line would render reversed. "
+                  "Install libraqm before Pillow, or pin a Pillow wheel that "
+                  "bundles it — do not ship frames from this run."
+              )
+          print("raqm: ok")
+          PY
+
+      # inputs.day goes through the environment, never interpolated into the
+      # shell command — an input spliced straight into `run:` is a script
+      # injection hole even when only maintainers can trigger the workflow.
+      - name: Render frames
+        id: render
+        env:
+          DAY: ${{ inputs.day }}
+        run: |
+          python content/SHAKED_SKIN/03_MEDIA/build/stories.py "$DAY"
+          printf 'dir=content/SHAKED_SKIN/03_MEDIA/DAY%02d\n' "$DAY" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shaked-day-${{ inputs.day }}-frames
+          path: ${{ steps.render.outputs.dir }}
+          if-no-files-found: error

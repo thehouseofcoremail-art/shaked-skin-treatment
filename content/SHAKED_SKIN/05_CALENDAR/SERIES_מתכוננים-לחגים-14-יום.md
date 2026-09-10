@@ -231,6 +231,11 @@ HOLIDAY PREPARATIONS · DAY 1 OF 14
 cd content/SHAKED_SKIN/03_MEDIA/build && python3 stories.py
 ```
 
+**או בלי מחשב:** באתר של GitHub → לשונית **Actions** → **Story frames — Shaked**
+→ **Run workflow** → מקלידים מספר יום. בסוף ההרצה יש קובץ ZIP להורדה עם חמשת
+ה-PNG-ים. הקובץ: `.github/workflows/story-frames.yml`.
+
+
 - צבעים וסקאלת הטיפוגרפיה נלקחים מ-`00_BRAND/BRAND_BRIEF.md` סעיפים 2 ו-2ב — הסקריפט לא ממציא צבע אקסנט.
 - הפונט הוא **Heebo** (Light 300 / Regular 400 / Medium 500), שלושה משקלים בדיוק כמו בטמפלט המאושר. Helvetica אינה זמינה מחוץ לקאנבה ואין לה כיסוי עברי; Heebo היא הגרוטסק הנייטרלי הקרוב לה שמכסה עברית ולטינית באותה משפחה. קבצי הפונט הם מיזוג של תת-הקבוצות `hebrew` ו-`latin` מ-Google Fonts, כי כל אחת לבדה מחזירה ריבועים בחצי מהטקסט.
 - **bidi — הכלל שעלה לנו בטעות אחת.** ה-Pillow שמותקן כאן **מקומפל עם Raqm**
