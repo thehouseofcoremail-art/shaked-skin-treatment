@@ -658,7 +658,8 @@ ${footer(0)}`;
 
 /* -------------------------------------------------------------- feeds */
 function feed() {
-  const now = new Date().toUTCString();
+  // תאריך הכתבה האחרונה ולא שעת הבנייה, כדי שבנייה חוזרת לא תייצר שינוי מדומה ב-git
+  const now = new Date(articles[0].date + "T08:00:00Z").toUTCString();
   const base = cfg.brand.domain.replace(/\/$/, "");
   return `<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0"><channel>
