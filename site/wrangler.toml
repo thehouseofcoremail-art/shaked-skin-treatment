@@ -1,0 +1,22 @@
+name = "behind-the-mirrors"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "public"
+
+# אחסון המנויים. ליצירה:  npx wrangler kv namespace create MEMBERS
+# ואז להדביק כאן את ה-id שהפקודה מחזירה.
+[[kv_namespaces]]
+binding = "MEMBERS"
+id = "REPLACE_WITH_YOUR_KV_ID"
+
+[vars]
+FREE_ARTICLES_PER_MONTH = "2"
+
+# סודות לא נכנסים לקובץ הזה. להגדרה:
+#   npx wrangler pages secret put STRIPE_SECRET_KEY
+#   npx wrangler pages secret put STRIPE_WEBHOOK_SECRET
+#   npx wrangler pages secret put SESSION_SECRET
+#   npx wrangler pages secret put STRIPE_PRICE_MONTHLY
+#   npx wrangler pages secret put STRIPE_PRICE_ANNUAL
+#   npx wrangler pages secret put STRIPE_PRICE_TEAM
+#   npx wrangler pages secret put RESEND_API_KEY
+#   npx wrangler pages secret put MAIL_FROM

@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+.dev.vars
+
+# נבנה רק לתצוגה מקדימה ומכיל את גוף הכתבות בתשלום. לא לעלות לאתר החי.
+public/data/bodies.demo.json

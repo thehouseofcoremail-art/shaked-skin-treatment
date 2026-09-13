@@ -1,0 +1,67 @@
+{
+  "_comment": "נקודת העריכה היחידה. שינוי כאן מתגלגל לכל האתר אחרי npm run build.",
+  "brand": {
+    "name": "מאחורי המראות",
+    "latin": "BEHIND THE MIRRORS",
+    "tagline": "מודיעין עסקי לתעשיית הכושר בישראל",
+    "description": "מה באמת קורה במספרים של סטודיו בוטיק, רשת כושר ומכון בישראל — תמחור, נטישה, שכר מדריכים ותזרים. פעם בשבוע, בלי קשקוש.",
+    "domain": "https://mirrors.example.co.il",
+    "locale": "he-IL",
+    "launchIssue": 1
+  },
+  "author": {
+    "name": "רומי",
+    "role": "כותבת ומייסדת",
+    "bio": "עשור בתוך התעשייה — בניית תוכן, מיצוב ומכירות לסטודיו בוטיק, מותגי יופי ועסקי שירות בישראל. את הטור הזה אני כותבת מהצד של מי שרואה את הדוחות, לא רק את הפיד.",
+    "email": "hello@example.co.il",
+    "instagram": "",
+    "_note": "החליפי שם, ביו ופרטי קשר לפני עלייה לאוויר."
+  },
+  "plans": [
+    {
+      "id": "trial",
+      "kind": "monthly",
+      "eyebrow": "התנסות",
+      "title": "14 יום חינם",
+      "price": null,
+      "priceNote": "ואז ₪45 לכל 4 שבועות",
+      "renewNote": "ביטול בכל רגע",
+      "cta": "התחלת ההתנסות",
+      "stripePriceEnv": "STRIPE_PRICE_MONTHLY",
+      "trialDays": 14,
+      "featured": false
+    },
+    {
+      "id": "annual",
+      "kind": "annual",
+      "eyebrow": "הכי משתלם",
+      "badge": "חיסכון ₪195",
+      "title": "שנתי",
+      "price": "₪390",
+      "priceNote": "לשנה הראשונה",
+      "renewNote": "מתחדש ב-₪490 לשנה · ביטול בכל רגע",
+      "cta": "הרשמה",
+      "stripePriceEnv": "STRIPE_PRICE_ANNUAL",
+      "trialDays": 0,
+      "featured": true
+    },
+    {
+      "id": "team",
+      "kind": "team",
+      "eyebrow": "לצוות",
+      "title": "סטודיו",
+      "price": "₪1,490",
+      "priceNote": "לשנה · עד 5 מושבים",
+      "renewNote": "לרשתות ולספקים — כתבו לי",
+      "cta": "דברו איתי",
+      "stripePriceEnv": "STRIPE_PRICE_TEAM",
+      "trialDays": 0,
+      "featured": false
+    }
+  ],
+  "paywall": {
+    "freeArticlesPerMonth": 2,
+    "_note": "מונה רך בעוגייה חתומה — כמו ב-Business Insider. 0 = חומה קשיחה."
+  },
+  "currency": "ILS"
+}
