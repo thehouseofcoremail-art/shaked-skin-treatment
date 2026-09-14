@@ -146,7 +146,7 @@ def seeded(s):
 FAMILY = {
     "מודל": "contour", "פתח דבר": "rings", "תזרים": "flow",
     "שימור": "flow", "תפעול": "grid", "תמחור": "grid", "שוק": "contour",
-    "שיווק": "rings",
+    "שיווק": "rings", "מיצוב": "scatter",
 }
 
 
@@ -186,6 +186,21 @@ def backdrop(img, slug, category, strength=1.0):
             x0 = c * cw + cw * 0.24
             d.rectangle([x0, base - bh, x0 + cw * 0.52, base],
                         fill=ACCENT + (int(10 + rnd() * 26),))
+    elif fam == "scatter":
+        ax, ay = W * (0.36 + rnd() * 0.28), H * (0.38 + rnd() * 0.24)
+        d.line([(0, ay), (W, ay)], fill=ACCENT + (int(34 * strength),), width=2)
+        d.line([(ax, 0), (ax, H)], fill=ACCENT + (int(34 * strength),), width=2)
+        pts = [(40 + rnd() * (W - 80), 40 + rnd() * (H - 80)) for _ in range(24)]
+        for (x, y) in pts:
+            r = 4 + rnd() * 12
+            a = int((26 + rnd() * 46) * strength)
+            if a > 2:
+                d.ellipse([x - r, y - r, x + r, y + r], fill=ACCENT + (a,))
+        mx, my = pts[int(rnd() * len(pts))]
+        a = int(150 * strength)
+        if a > 2:
+            d.ellipse([mx - 15, my - 15, mx + 15, my + 15], fill=SIGNAL + (a,))
+            d.ellipse([mx - 30, my - 30, mx + 30, my + 30], outline=SIGNAL + (int(90 * strength),), width=3)
     else:
         cx, cy = W * (0.2 + rnd() * 0.6), H * (0.92 + rnd() * 0.2)
         for k in range(1, 15):

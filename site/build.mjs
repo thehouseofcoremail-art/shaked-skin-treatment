@@ -127,7 +127,7 @@ const pad2 = (n) => String(n).padStart(2, "0");
  */
 const COVER_FAMILY = {
   "מודל": "contour", "פתח דבר": "rings", "תזרים": "flow", "שימור": "flow",
-  "תפעול": "grid", "תמחור": "grid", "שוק": "contour", "שיווק": "rings",
+  "תפעול": "grid", "תמחור": "grid", "שוק": "contour", "שיווק": "rings", "מיצוב": "scatter",
 };
 
 function seeded(str) {
@@ -187,6 +187,21 @@ function coverSvg(slug, category) {
         marks.push(`<line x1="${r1(c * cw + cw * 0.22)}" y1="${r1(H - h)}" x2="${r1(c * cw + cw * 0.78)}" y2="${r1(H - h)}" opacity=".55"/>`);
       }
     }
+  } else if (family === "scatter") {
+    const ax = W * (0.36 + rand() * 0.28), ay = H * (0.38 + rand() * 0.24);
+    marks.push(`<line x1="0" y1="${r1(ay)}" x2="${W}" y2="${r1(ay)}" opacity=".3"/>`);
+    marks.push(`<line x1="${r1(ax)}" y1="0" x2="${r1(ax)}" y2="${H}" opacity=".3"/>`);
+    const n = 22 + Math.floor(rand() * 12);
+    const pts = [];
+    for (let i = 0; i < n; i++) pts.push([r1(40 + rand() * (W - 80)), r1(40 + rand() * (H - 80))]);
+    for (const [x, y] of pts) {
+      const rad = r1(3 + rand() * 9);
+      marks.push(`<circle cx="${x}" cy="${y}" r="${rad}" opacity="${r1(0.18 + rand() * 0.38)}"/>`);
+    }
+    // הנקודה שלכן: היחידה בענבר, ומלאה
+    const [mx, my] = pts[Math.floor(rand() * pts.length)];
+    marks.push(`<circle cx="${mx}" cy="${my}" r="13" fill="#F0B429" stroke="none" opacity=".85"/>`);
+    marks.push(`<circle cx="${mx}" cy="${my}" r="26" stroke="#F0B429" opacity=".45"/>`);
   } else {
     const cx = W * (0.2 + rand() * 0.6), cy = H * (0.9 + rand() * 0.3);
     for (let k = 1; k <= 13; k++) {
