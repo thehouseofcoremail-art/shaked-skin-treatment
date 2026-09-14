@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="800" height="460" role="img" aria-label="">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#14161D"/><stop offset="1" stop-color="#0A0B0F"/></linearGradient></defs>
+<rect width="800" height="460" fill="url(#g)"/>
+<g fill="none" stroke="#9DB4FF" color="#9DB4FF" stroke-width="1.1">
+<line x1="0" y1="438.6" x2="800" y2="438.6" opacity=".5"/>
+<rect x="7.7" y="157.6" width="19.5" height="302.4" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="42.4" y="343.6" width="19.5" height="116.4" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="77.2" y="375" width="19.5" height="85" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="112" y="258.1" width="19.5" height="201.9" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="146.8" y="241.7" width="19.5" height="218.3" fill="currentColor" stroke="none" opacity="0.1"/>
+<line x1="146.8" y1="241.7" x2="166.3" y2="241.7" opacity=".55"/>
+<rect x="181.6" y="123.6" width="19.5" height="336.4" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="216.3" y="128.6" width="19.5" height="331.4" fill="currentColor" stroke="none" opacity="0.1"/>
+<line x1="216.3" y1="128.6" x2="235.8" y2="128.6" opacity=".55"/>
+<rect x="251.1" y="185.3" width="19.5" height="274.7" fill="currentColor" stroke="none" opacity="0.2"/>
+<line x1="251.1" y1="185.3" x2="270.6" y2="185.3" opacity=".55"/>
+<rect x="285.9" y="265.9" width="19.5" height="194.1" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="320.7" y="356.4" width="19.5" height="103.6" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="355.5" y="145.7" width="19.5" height="314.3" fill="currentColor" stroke="none" opacity="0.1"/>
+<line x1="355.5" y1="145.7" x2="375" y2="145.7" opacity=".55"/>
+<rect x="390.3" y="250.6" width="19.5" height="209.4" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="425" y="60.2" width="19.5" height="399.8" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="459.8" y="36.7" width="19.5" height="423.3" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="494.6" y="146.3" width="19.5" height="313.7" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="529.4" y="288.3" width="19.5" height="171.7" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="564.2" y="106.6" width="19.5" height="353.4" fill="currentColor" stroke="none" opacity="0.1"/>
+<line x1="564.2" y1="106.6" x2="583.7" y2="106.6" opacity=".55"/>
+<rect x="599" y="161.7" width="19.5" height="298.3" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="633.7" y="137.9" width="19.5" height="322.1" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="668.5" y="93.4" width="19.5" height="366.6" fill="currentColor" stroke="none" opacity="0.1"/>
+<rect x="703.3" y="284.5" width="19.5" height="175.5" fill="currentColor" stroke="none" opacity="0.2"/>
+<line x1="703.3" y1="284.5" x2="722.8" y2="284.5" opacity=".55"/>
+<rect x="738.1" y="42.2" width="19.5" height="417.8" fill="currentColor" stroke="none" opacity="0.2"/>
+<rect x="772.9" y="77.8" width="19.5" height="382.2" fill="currentColor" stroke="none" opacity="0.1"/>
+</g></svg>

@@ -127,7 +127,7 @@ const pad2 = (n) => String(n).padStart(2, "0");
  */
 const COVER_FAMILY = {
   "מודל": "contour", "פתח דבר": "rings", "תזרים": "flow", "שימור": "flow",
-  "תפעול": "grid", "תמחור": "grid", "שוק": "contour",
+  "תפעול": "grid", "תמחור": "grid", "שוק": "contour", "שיווק": "rings",
 };
 
 function seeded(str) {

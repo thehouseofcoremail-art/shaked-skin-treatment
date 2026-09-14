@@ -146,6 +146,7 @@ def seeded(s):
 FAMILY = {
     "מודל": "contour", "פתח דבר": "rings", "תזרים": "flow",
     "שימור": "flow", "תפעול": "grid", "תמחור": "grid", "שוק": "contour",
+    "שיווק": "rings",
 }
 
 
