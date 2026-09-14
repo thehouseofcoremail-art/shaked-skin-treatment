@@ -1,8 +1,8 @@
 {
-  "name": "the-floor",
+  "name": "the-margin",
   "version": "1.0.0",
   "private": true,
-  "description": "הרצפה — מגזין מנויים על הצד העסקי של תעשיית הכושר בישראל",
+  "description": "המרווח — מגזין מנויים על הצד העסקי של תעשיית הכושר בישראל",
   "type": "module",
   "scripts": {
     "build": "node build.mjs",

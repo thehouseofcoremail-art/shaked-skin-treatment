@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * הרצפה — גנרטור סטטי ללא תלויות.
+ * המרווח — גנרטור סטטי ללא תלויות.
  *   npm run build            בניית האתר לתוך public/
  *   npm run build -- --demo  בונה גם public/data/bodies.demo.json לתצוגה מקדימה בלבד
  *
@@ -205,7 +205,7 @@ ${marks.join("\n")}
 
 /* ------------------------------------------------------------ partials */
 const FAVICON =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0B0F'/%3E%3Cpath d='M2 22h28M2 27h28' stroke='%239DB4FF' stroke-width='2.6'/%3E%3Cpath d='M7 16h6v-5' stroke='%23F0B429' stroke-width='2.6' fill='none'/%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0B0F'/%3E%3Cpath d='M8 4v24M24 4v24' stroke='%239DB4FF' stroke-width='2.6'/%3E%3Cpath d='M8 16h16' stroke='%23F0B429' stroke-width='2.8'/%3E%3C/svg%3E";
 
 function head({ title, desc, depth, path = "", extra = "", jsonld = "" }) {
   const r = rel(depth);
@@ -250,7 +250,7 @@ function masthead(depth) {
       <a href="${r}index.html">הגיליון</a>
       <a href="${r}archive/index.html">ארכיון</a>
       <a href="${r}tools/index.html">מחשבונים</a>
-      <a href="${r}about/index.html">על הרצפה</a>
+      <a href="${r}about/index.html">על המרווח</a>
     </nav>
     <a class="btn btn--ghost btn--sm mnav-account" href="${r}account/index.html">כניסה</a>
     <a class="btn btn--solid btn--sm" href="${r}subscribe/index.html">מנוי</a>
@@ -282,7 +282,7 @@ function footer(depth) {
       <ul>
         <li><a href="${r}index.html">הגיליון</a></li>
         <li><a href="${r}archive/index.html">ארכיון</a></li>
-        <li><a href="${r}about/index.html">על הרצפה</a></li>
+        <li><a href="${r}about/index.html">על המרווח</a></li>
         <li><a href="${r}feed.xml">RSS</a></li>
       </ul>
     </div>

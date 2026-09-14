@@ -1,11 +1,11 @@
 {
   "_comment": "נקודת העריכה היחידה. שינוי כאן מתגלגל לכל האתר אחרי npm run build.",
   "brand": {
-    "name": "הרצפה",
-    "latin": "THE FLOOR",
-    "tagline": "מה שקורה באמת על רצפת הסטודיו",
+    "name": "המרווח",
+    "latin": "THE MARGIN",
+    "tagline": "מה נשאר בסוף החודש",
     "description": "מודיעין עסקי לתעשיית הכושר בישראל — תמחור, נטישה, גיוס, שכר מדריכים ותזרים. פעם בשבוע, עם המספרים גלויים.",
-    "domain": "https://thefloor.example.co.il",
+    "domain": "https://themargin.example.co.il",
     "locale": "he-IL",
     "launchIssue": 1
   },

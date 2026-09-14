@@ -4,8 +4,8 @@
  */
 const encoder = new TextEncoder();
 
-export const MEMBER_COOKIE = "floor_member";
-export const METER_COOKIE = "floor_meter";
+export const MEMBER_COOKIE = "margin_member";
+export const METER_COOKIE = "margin_meter";
 
 function b64url(bytes) {
   let s = "";

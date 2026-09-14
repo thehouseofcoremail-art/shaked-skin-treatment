@@ -29,7 +29,7 @@ let meter = await readMeter(ctx(""));
 check("fresh meter empty", meter.slugs.length === 0);
 meter.slugs.push("netisha");
 const setCookie = await writeMeter(meter, S);
-const token = decodeURIComponent(/floor_meter=([^;]+)/.exec(setCookie)[1]);
+const token = decodeURIComponent(/margin_meter=([^;]+)/.exec(setCookie)[1]);
 const back = await readMeter(ctx(`${METER_COOKIE}=${token}`));
 check("meter persists", back.slugs.includes("netisha"));
 const forged = await sign({ m: back.m, slugs: [] }, "attacker-secret");
