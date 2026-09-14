@@ -6,7 +6,7 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
 const ROOT = new URL("../public", import.meta.url).pathname;
-const T = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json" };
+const T = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json", ".svg": "image/svg+xml" };
 const server = createServer(async (req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p.endsWith("/")) p += "index.html";
@@ -40,15 +40,36 @@ await page.waitForTimeout(600);
 check("premium body revealed after unlock", (await page.$eval("#premium", e => e.textContent)).includes("אורך חיים ממוצע"));
 check("gate hidden after unlock", !(await page.isVisible("#gate")));
 
-// 4. calculator recomputes on input
+// 4. calculators recompute on input
 await page.goto("http://127.0.0.1:8099/tools/unit-economics/index.html", { waitUntil: "networkidle" });
 const before = await page.$eval('[data-out="contribution"]', e => e.textContent);
-await page.fill("#calc-rev", "20");  // 20/head cannot cover 275 fixed+coach
+await page.fill("#unit-rev", "20");  // 20/head cannot cover 275 fixed+coach
 await page.waitForTimeout(250);
 const after = await page.$eval('[data-out="contribution"]', e => e.textContent);
 const cls = await page.$eval('[data-out="contribution"]', e => e.className);
 check("calculator recomputes", before !== after, `${before} -> ${after}`);
 check("loss shows as negative state", cls.includes("neg"), "class=" + cls);
+
+// 4b. the other two calculators compute too
+await page.goto("http://127.0.0.1:8099/tools/churn/index.html", { waitUntil: "networkidle" });
+check("churn calculator computes LTV", /\d/.test(await page.$eval('[data-out="ltv"]', e => e.textContent)));
+await page.goto("http://127.0.0.1:8099/tools/pricing/index.html", { waitUntil: "networkidle" });
+check("pricing calculator computes a price", /\d/.test(await page.$eval('[data-out="price"]', e => e.textContent)));
+
+// 4c. every cover the pages reference is served as a real SVG.
+// נבדק ברמת ה-HTTP ולא דרך naturalWidth: כרומיום ללא ראש מדווח 0 אחרי כמה ניווטים
+// באותו אובייקט page גם כשהתמונה נטענה. בדיקת התגובה יציבה ואומרת יותר.
+await page.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+const coverUrls = [...new Set(await page.$$eval("img", imgs => imgs.map(i => i.src)))];
+check("every article carries a cover", coverUrls.length >= 11, coverUrls.length + " images");
+const badCovers = [];
+for (const u of coverUrls) {
+  const r = await fetch(u);
+  const type = r.headers.get("content-type") || "";
+  const body = r.ok ? await r.text() : "";
+  if (!r.ok || type.indexOf("image/svg") < 0 || body.indexOf("<svg") < 0) badCovers.push(u + " " + r.status + " " + type);
+}
+check("all covers serve valid SVG", badCovers.length === 0, badCovers.slice(0, 3).join(" | "));
 
 // 5. FAQ accordion
 await page.goto("http://127.0.0.1:8099/subscribe/index.html", { waitUntil: "networkidle" });

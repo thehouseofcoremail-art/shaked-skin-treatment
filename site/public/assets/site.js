@@ -1,4 +1,4 @@
-/* מאחורי המראות — לוגיקת צד לקוח. ללא תלויות. */
+/* הרצפה — לוגיקת צד לקוח. ללא תלויות. */
 (function () {
   "use strict";
 
@@ -9,6 +9,7 @@
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
   function ils(n) { return "₪" + Math.round(n).toLocaleString("he-IL"); }
+  function months(n) { return isFinite(n) ? n.toFixed(1) + " חודשים" : "—"; }
   function say(el, text, kind) {
     if (!el) return;
     el.textContent = text;
@@ -58,71 +59,151 @@
     window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(draw, 160); });
   }
 
-  /* ------------------------------------------------------- unit calc */
+  /* ------------------------------------------------------- calculators
+   * כל מחשבון מקבל את ערכי השדות ומחזיר ערכים מוכנים להצגה.
+   * המבנה של ה-HTML נבנה ב-build.mjs; כאן רק החשבון.
+   */
+  var WEEKS = 4.33;
+
+  var COMPUTE = {
+    unit: function (v) {
+      var heads = v.cap * (v.fill / 100);
+      var income = heads * v.rev;
+      var contribution = income - heads * v.vari - v.coach - v.fixed;
+      var perHead = v.rev - v.vari;
+      var breakeven = perHead > 0 ? (v.coach + v.fixed) / perHead : Infinity;
+      var monthly = contribution * v.classes * WEEKS;
+      var ratio = isFinite(breakeven) && breakeven > 0 ? heads / breakeven : 0;
+      return {
+        out: {
+          heads: [heads.toFixed(1) + " ראשים"],
+          income: [ils(income)],
+          contribution: [ils(contribution), contribution >= 0 ? "pos" : "neg"],
+          breakeven: [isFinite(breakeven) ? breakeven.toFixed(1) + " ראשים" : "—"],
+          monthly: [ils(monthly), monthly >= 0 ? "pos" : "neg"],
+        },
+        ratio: ratio,
+        good: ratio >= 1,
+        legend: !isFinite(breakeven)
+          ? "ההכנסה לראש נמוכה מהעלות המשתנה — אין נקודת איזון"
+          : heads >= breakeven
+            ? "מעל האיזון ב-" + (heads - breakeven).toFixed(1) + " ראשים"
+            : "חסרים " + (breakeven - heads).toFixed(1) + " ראשים לאיזון",
+      };
+    },
+
+    churn: function (v) {
+      var rate = v.active > 0 ? v.left / v.active : 0;
+      var life = rate > 0 ? 1 / rate : Infinity;
+      var ltv = isFinite(life) ? v.contrib * life : Infinity;
+      var ratio = v.cac > 0 && isFinite(ltv) ? ltv / v.cac : Infinity;
+      var payback = v.contrib > 0 ? v.cac / v.contrib : Infinity;
+      return {
+        out: {
+          churn: [(rate * 100).toFixed(1) + "%", rate <= 0.08 ? "pos" : rate >= 0.12 ? "neg" : ""],
+          life: [months(life)],
+          ltv: [isFinite(ltv) ? ils(ltv) : "—"],
+          ratio: [isFinite(ratio) ? ratio.toFixed(1) + " : 1" : "—", ratio >= 3 ? "pos" : ratio < 1 ? "neg" : ""],
+          payback: [months(payback)],
+        },
+        ratio: isFinite(ratio) ? ratio / 3 : 0,
+        good: ratio >= 3,
+        legend: !isFinite(ratio)
+          ? "אין מספיק נתונים ליחס"
+          : ratio >= 3
+            ? "יחס בריא. יש מקום להגדיל תקציב גיוס"
+            : ratio >= 1
+              ? "שורדות, בלי מקום לטעות. יעד: 3 ומעלה"
+              : "כל לקוחה חדשה מכניסה אתכן להפסד",
+      };
+    },
+
+    pricing: function (v) {
+      var classesMonth = v.classes * WEEKS;
+      var headsMonth = classesMonth * v.cap * (v.fill / 100);
+      var needed = v.fixedm + v.coach * classesMonth + v.vari * headsMonth + v.target;
+      var price = headsMonth > 0 ? needed / headsMonth : 0;
+      var gap = v.current - price;
+      var ratio = price > 0 ? v.current / price : 0;
+      return {
+        out: {
+          headsMonth: [Math.round(headsMonth).toLocaleString("he-IL") + " כניסות"],
+          needed: [ils(needed)],
+          price: [ils(price), "accent"],
+          sub8: [ils(price * 8)],
+          gap: [(gap >= 0 ? "+" : "") + ils(gap), gap >= 0 ? "pos" : "neg"],
+        },
+        ratio: ratio,
+        good: ratio >= 1,
+        legend: price <= 0
+          ? "חסרים נתונים"
+          : ratio >= 1
+            ? "המחיר הנוכחי מכסה את היעד"
+            : "המחיר הנוכחי מכסה " + Math.round(ratio * 100) + "% מהנדרש",
+      };
+    },
+  };
+
   function calculator(root) {
-    var ids = ["rev", "cap", "fill", "coach", "vari", "fixed", "classes"];
-    var inputs = {};
-    ids.forEach(function (id) {
-      var el = $("#calc-" + id, root);
-      inputs[id] = el;
-      if (!el) return;
-      var saved = store("calc-" + id);
+    var id = root.dataset.calc;
+    var compute = COMPUTE[id];
+    if (!compute) return;
+    var inputs = $$("input[data-f]", root);
+
+    inputs.forEach(function (el) {
+      var key = "calc:" + id + ":" + el.dataset.f;
+      var saved = store(key);
       if (saved !== null && saved !== undefined && saved !== "") el.value = saved;
-      el.addEventListener("input", function () { store("calc-" + id, el.value); run(); });
+      el.addEventListener("input", function () { store(key, el.value); run(); });
     });
 
-    function num(id) { var el = inputs[id]; var v = el ? parseFloat(el.value) : NaN; return isNaN(v) ? 0 : v; }
-
     function run() {
-      var rev = num("rev"), cap = num("cap"), fill = num("fill") / 100,
-        coach = num("coach"), vari = num("vari"), fixed = num("fixed"), classes = num("classes");
+      var v = {};
+      inputs.forEach(function (el) {
+        var n = parseFloat(el.value);
+        v[el.dataset.f] = isNaN(n) ? 0 : n;
+      });
+      var res = compute(v);
 
-      var heads = cap * fill;
-      var income = heads * rev;
-      var contribution = income - heads * vari - coach - fixed;
-      var perHead = rev - vari;
-      var breakeven = perHead > 0 ? (coach + fixed) / perHead : Infinity;
-      var monthly = contribution * classes * 4.33;
+      Object.keys(res.out).forEach(function (k) {
+        var el = $('[data-out="' + k + '"]', root);
+        if (!el) return;
+        el.textContent = res.out[k][0];
+        el.className = "v" + (res.out[k][1] ? " " + res.out[k][1] : "");
+      });
 
-      set("heads", heads.toFixed(1) + " ראשים");
-      set("income", ils(income));
-      set("contribution", ils(contribution), contribution >= 0 ? "pos" : "neg");
-      set("breakeven", isFinite(breakeven) ? breakeven.toFixed(1) + " ראשים" : "—");
-      set("monthly", ils(monthly), monthly >= 0 ? "pos" : "neg");
-
-      var fillEl = $("[data-out=gauge]", root);
-      if (fillEl) {
-        var ratio = isFinite(breakeven) && breakeven > 0 ? heads / breakeven : 0;
-        fillEl.style.width = Math.max(2, Math.min(100, ratio * 100)) + "%";
-        fillEl.className = "gauge-fill " + (ratio >= 1 ? "pos" : "neg");
+      var fill = $('[data-out="gauge"]', root);
+      if (fill) {
+        fill.style.width = Math.max(2, Math.min(100, (res.ratio || 0) * 100)) + "%";
+        fill.className = "gauge-fill " + (res.good ? "pos" : "neg");
       }
-      var legend = $("[data-out=legend]", root);
-      if (legend) {
-        legend.textContent = isFinite(breakeven)
-          ? (heads >= breakeven
-            ? "מעל האיזון ב-" + (heads - breakeven).toFixed(1) + " ראשים"
-            : "חסרים " + (breakeven - heads).toFixed(1) + " ראשים לאיזון")
-          : "ההכנסה לראש נמוכה מהעלות המשתנה — אין נקודת איזון";
-      }
-    }
-
-    function set(key, text, cls) {
-      var el = $('[data-out="' + key + '"]', root);
-      if (!el) return;
-      el.textContent = text;
-      el.className = "v" + (cls ? " " + cls : "");
+      var legend = $('[data-out="legend"]', root);
+      if (legend) legend.textContent = res.legend;
     }
 
     var reset = $("[data-calc-reset]", root);
     if (reset) reset.addEventListener("click", function () {
-      ids.forEach(function (id) {
-        var el = inputs[id];
-        if (el && el.dataset.default !== undefined) { el.value = el.dataset.default; store("calc-" + id, el.value); }
+      inputs.forEach(function (el) {
+        if (el.dataset.default === undefined) return;
+        el.value = el.dataset.default;
+        store("calc:" + id + ":" + el.dataset.f, el.value);
       });
       run();
     });
 
     run();
+  }
+
+  /* ------------------------------------------------------ reading bar */
+  function progress(bar) {
+    function update() {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = (max > 0 ? Math.min(1, doc.scrollTop / max) * 100 : 0) + "%";
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
   }
 
   /* ----------------------------------------------------------- session */
@@ -166,7 +247,7 @@
         n.textContent = note;
         target.insertBefore(n, target.firstChild);
       }
-      target.scrollIntoView({ block: "nearest" });
+      $$("[data-calc]", target).forEach(calculator);
     }
 
     function unlock(consume) {
@@ -184,10 +265,12 @@
       }).catch(function () { return false; });
     }
 
-    // demo mode: no server. Load the preview bodies if the build produced them.
+    // מצב הדגמה: אין שרת. נטען את גוף הכתבות שנבנה עם --demo, אם קיים.
     if (state.demo) {
       var demoBtn = $("[data-unlock]", gateEl);
       if (demoBtn) {
+        demoBtn.hidden = false;
+        demoBtn.classList.remove("btn--ghost");
         demoBtn.textContent = "פתיחת הכתבה (הדגמה)";
         demoBtn.addEventListener("click", function () {
           fetch("../../data/bodies.demo.json").then(function (r) { return r.json(); }).then(function (map) {
@@ -275,6 +358,8 @@
   function boot() {
     $$("canvas.contours").forEach(contours);
     $$("[data-calc]").forEach(calculator);
+    var bar = $("#progress");
+    if (bar) progress(bar);
     wireCheckout();
     wireForms();
     loadSession().then(function () { paintSession(); gate(); });

@@ -1,54 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0"><channel>
-<title>מאחורי המראות</title>
-<link>https://mirrors.example.co.il/</link>
-<description>מה באמת קורה במספרים של סטודיו בוטיק, רשת כושר ומכון בישראל — תמחור, נטישה, שכר מדריכים ותזרים. פעם בשבוע, בלי קשקוש.</description>
+<title>הרצפה</title>
+<link>https://thefloor.example.co.il/</link>
+<description>מודיעין עסקי לתעשיית הכושר בישראל — תמחור, נטישה, גיוס, שכר מדריכים ותזרים. פעם בשבוע, עם המספרים גלויים.</description>
 <language>he-il</language>
-<lastBuildDate>Sun, 13 Sep 2026 08:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 01 Oct 2026 08:00:00 GMT</lastBuildDate>
+<item>
+  <title>רשת מול בוטיק — מי באמת מרוויח</title>
+  <link>https://thefloor.example.co.il/a/reshet-mul-butik/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/reshet-mul-butik/</guid>
+  <pubDate>Thu, 01 Oct 2026 08:00:00 GMT</pubDate>
+  <category>שוק</category>
+  <description>שני המודלים נראים מבחוץ כמו אותו עסק עם גדלים שונים. הם לא. הם מרוויחים ממקורות שונים, נשברים בנקודות שונות, ומתחרים על קהלים שונים — וזה קובע איפה כדאי לכן לשחק.</description>
+</item>
+<item>
+  <title>לשרוד את אוגוסט ואת תשרי</title>
+  <link>https://thefloor.example.co.il/a/onatiyut/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/onatiyut/</guid>
+  <pubDate>Sun, 27 Sep 2026 08:00:00 GMT</pubDate>
+  <category>תפעול</category>
+  <description>לעסקי כושר בישראל יש שתי בורות בשנה, והן ידועות מראש. מי שמתכננת אותן בינואר עוברת אותן בשקט; מי שמגלה אותן באוגוסט מגלה אותן דרך חשבון הבנק.</description>
+</item>
+<item>
+  <title>החודש הראשון קובע הכול</title>
+  <link>https://thefloor.example.co.il/a/chodesh-rishon/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/chodesh-rishon/</guid>
+  <pubDate>Thu, 24 Sep 2026 08:00:00 GMT</pubDate>
+  <category>שימור</category>
+  <description>רוב מי שעוזבת עוזבת בשבועות הראשונים, הרבה לפני שמישהו שם לב. תוכנית של שלושים יום עולה כמעט כלום ומזיזה את עקומת השימור יותר מכל קמפיין גיוס.</description>
+</item>
+<item>
+  <title>המחיר שאת מפחדת לבקש</title>
+  <link>https://thefloor.example.co.il/a/hamechir/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/hamechir/</guid>
+  <pubDate>Sun, 20 Sep 2026 08:00:00 GMT</pubDate>
+  <category>תמחור</category>
+  <description>כל בעלת סטודיו יודעת שהמחיר שלה נמוך מדי. כמעט אף אחת לא מעלה אותו, כי הפחד הוא &quot;יעזבו&quot;. הנה החשבון שמראה כמה בדיוק מותר שיעזבו.</description>
+</item>
+<item>
+  <title>כמה עולה לך לקוחה חדשה</title>
+  <link>https://thefloor.example.co.il/a/gius-lakocha/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/gius-lakocha/</guid>
+  <pubDate>Thu, 17 Sep 2026 08:00:00 GMT</pubDate>
+  <category>מודל</category>
+  <description>רוב בעלות הסטודיו יודעות כמה הן מוציאות על פרסום. כמעט אף אחת לא יודעת כמה עולה לקוחה אחת שנשארה. זה שני מספרים שונים לגמרי, וההפרש ביניהם הוא כל התקציב.</description>
+</item>
 <item>
   <title>למה התחלתי לכתוב את זה</title>
-  <link>https://mirrors.example.co.il/a/petach-davar/</link>
-  <guid isPermaLink="true">https://mirrors.example.co.il/a/petach-davar/</guid>
+  <link>https://thefloor.example.co.il/a/petach-davar/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/petach-davar/</guid>
   <pubDate>Sun, 13 Sep 2026 08:00:00 GMT</pubDate>
   <category>פתח דבר</category>
   <description>בתעשייה הזאת כולם מדברים על מלאות בשיעור. כמעט אף אחד לא מדבר על מה נשאר בסוף החודש. זה הטור שהייתי רוצה לקרוא לפני עשר שנים.</description>
 </item>
 <item>
   <title>כמה באמת נשאר לך משיעור אחד</title>
-  <link>https://mirrors.example.co.il/a/kama-nishar-mishiur/</link>
-  <guid isPermaLink="true">https://mirrors.example.co.il/a/kama-nishar-mishiur/</guid>
+  <link>https://thefloor.example.co.il/a/kama-nishar-mishiur/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/kama-nishar-mishiur/</guid>
   <pubDate>Thu, 10 Sep 2026 08:00:00 GMT</pubDate>
   <category>מודל</category>
   <description>לפני כל דיון על תמחור, מחירון או מבצע — יש מספר אחד שצריך לדעת: התרומה נטו של שיעור בודד. רוב הסטודיו שאני מכירה מעולם לא חישבו אותו. הנה המחשבון.</description>
 </item>
 <item>
   <title>חבילת השמונה אוכלת לך את התזרים</title>
-  <link>https://mirrors.example.co.il/a/havilat-shmona/</link>
-  <guid isPermaLink="true">https://mirrors.example.co.il/a/havilat-shmona/</guid>
+  <link>https://thefloor.example.co.il/a/havilat-shmona/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/havilat-shmona/</guid>
   <pubDate>Sun, 06 Sep 2026 08:00:00 GMT</pubDate>
   <category>תזרים</category>
   <description>המוצר הכי נמכר בסטודיו הישראלי הוא גם זה שגורם לבעלות לחשוב שיש להן יותר כסף ממה שיש. זו לא בעיה שיווקית. זו בעיה חשבונאית שמתחפשת לחודש טוב.</description>
 </item>
 <item>
   <title>נטישה — המספר היחיד שקובע כמה שווה הסטודיו שלך</title>
-  <link>https://mirrors.example.co.il/a/netisha/</link>
-  <guid isPermaLink="true">https://mirrors.example.co.il/a/netisha/</guid>
+  <link>https://thefloor.example.co.il/a/netisha/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/netisha/</guid>
   <pubDate>Thu, 03 Sep 2026 08:00:00 GMT</pubDate>
   <category>מודל</category>
   <description>אף לקוחה לא מודיעה שהיא עוזבת. היא פשוט מפסיקה להירשם. לכן רוב העסקים בתעשייה מגלים את הנטישה שלהם חצי שנה מאוחר מדי, וממשיכים לשפוך תקציב על גיוס לתוך דלי מחורר.</description>
 </item>
 <item>
   <title>מה באמת עולה לפתוח סטודיו ריפורמר</title>
-  <link>https://mirrors.example.co.il/a/ptichat-studio/</link>
-  <guid isPermaLink="true">https://mirrors.example.co.il/a/ptichat-studio/</guid>
+  <link>https://thefloor.example.co.il/a/ptichat-studio/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/ptichat-studio/</guid>
   <pubDate>Sun, 30 Aug 2026 08:00:00 GMT</pubDate>
   <category>תפעול</category>
   <description>ההשקעה בציוד היא הסעיף שכולם שואלים עליו, והיא לרוב לא זו שמפילה סטודיו חדש. הנה רשימת הסעיפים המלאה, כולל השמונה שלא מופיעים בשום תוכנית עסקית שראיתי.</description>
 </item>
 <item>
   <title>כמה לשלם למדריכה</title>
-  <link>https://mirrors.example.co.il/a/sachar-madrichot/</link>
-  <guid isPermaLink="true">https://mirrors.example.co.il/a/sachar-madrichot/</guid>
+  <link>https://thefloor.example.co.il/a/sachar-madrichot/</link>
+  <guid isPermaLink="true">https://thefloor.example.co.il/a/sachar-madrichot/</guid>
   <pubDate>Thu, 27 Aug 2026 08:00:00 GMT</pubDate>
   <category>תפעול</category>
   <description>שלושה מודלי תגמול, ולכל אחד מהם יש התנהגות שהוא מייצר בלוח השיעורים. רוב הסטודיו בוחרים מודל לפי מה שנוח לחשב, ואז מתפלאים מההתנהגות שקיבלו.</description>

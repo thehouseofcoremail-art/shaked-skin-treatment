@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>נטישה ו-LTV · הרצפה</title>
+<meta name="description" content="אורך החיים של לקוחה, הערך שלה, וכמה מותר להוציא כדי לגייס אותה." />
+<link rel="canonical" href="https://thefloor.example.co.il/tools/churn/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="הרצפה" />
+<meta property="og:title" content="נטישה ו-LTV · הרצפה" />
+<meta property="og:description" content="אורך החיים של לקוחה, הערך שלה, וכמה מותר להוציא כדי לגייס אותה." />
+<meta property="og:locale" content="he_IL" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0B0F'/%3E%3Cpath d='M2 22h28M2 27h28' stroke='%239DB4FF' stroke-width='2.6'/%3E%3Cpath d='M7 16h6v-5' stroke='%23F0B429' stroke-width='2.6' fill='none'/%3E%3C/svg%3E" />
+<link rel="alternate" type="application/rss+xml" title="הרצפה" href="../../feed.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&amp;family=Assistant:wght@300;400;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
+<link rel="stylesheet" href="../../assets/site.css" />
+
+
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../../index.html">
+      <span class="wordmark-he">הרצפה</span>
+      <span class="wordmark-latin">THE FLOOR</span>
+    </a>
+    <nav class="mnav" aria-label="ראשי">
+      <a href="../../index.html">הגיליון</a>
+      <a href="../../archive/index.html">ארכיון</a>
+      <a href="../../tools/index.html">מחשבונים</a>
+      <a href="../../about/index.html">על הרצפה</a>
+    </nav>
+    <a class="btn btn--ghost btn--sm mnav-account" href="../../account/index.html">כניסה</a>
+    <a class="btn btn--solid btn--sm" href="../../subscribe/index.html">מנוי</a>
+  </div>
+</header>
+<main id="main">
+<section class="hero hero--slim">
+  <canvas class="contours" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <div class="kicker"><span class="chip chip--free">פתוח לכולן</span><span class="rule"></span><span class="mono">מחשבון</span></div>
+    <h1>נטישה ו-LTV</h1>
+    <p class="dek">אורך החיים של לקוחה, הערך שלה, וכמה מותר להוציא כדי לגייס אותה.</p>
+  </div>
+</section>
+<section class="section"><div class="wrap">
+  <div class="calc" data-calc="churn">
+  <div class="calc-head">
+    <h3>נטישה ו-LTV</h3>
+    <span class="mono">כמה שווה לקוחה אחת</span>
+  </div>
+  <div class="calc-body">
+    <div class="calc-inputs calc-inputs--narrow">
+      <div class="field">
+        <label for="churn-active">לקוחות פעילות בתחילת החודש</label>
+        <input type="number" id="churn-active" data-f="active" value="140" data-default="140" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="churn-left">נטשו החודש</label>
+        <input type="number" id="churn-left" data-f="left" value="11" data-default="11" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="churn-contrib">תרומה חודשית ללקוחה</label>
+        <input type="number" id="churn-contrib" data-f="contrib" value="260" data-default="260" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="churn-cac">עלות גיוס לקוחה</label>
+        <input type="number" id="churn-cac" data-f="cac" value="1100" data-default="1100" min="0" step="any" inputmode="decimal" />
+      </div>
+    </div>
+    <div class="calc-out">
+      <div class="out-row">
+        <span class="k">נטישה חודשית</span><span class="v" data-out="churn">—</span>
+      </div>
+      <div class="out-row">
+        <span class="k">אורך חיים ממוצע</span><span class="v" data-out="life">—</span>
+      </div>
+      <div class="out-row out-row--hero">
+        <span class="k">ערך חיים (LTV)</span><span class="v" data-out="ltv">—</span>
+      </div>
+      <div class="out-row">
+        <span class="k">יחס LTV ל-CAC</span><span class="v" data-out="ratio">—</span>
+      </div>
+      <div class="out-row">
+        <span class="k">החזר הגיוס</span><span class="v" data-out="payback">—</span>
+      </div>
+      <div class="gauge">
+        <div class="gauge-track"><div class="gauge-fill" data-out="gauge" style="width:0"></div></div>
+        <div class="gauge-legend">
+          <span class="mono" data-out="legend">—</span>
+          <button class="linkbtn mono" type="button" data-calc-reset>איפוס</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-foot"><span class="mono">ברירות המחדל הן המחשה בלבד, לא נתוני שוק · הנתונים נשמרים בדפדפן שלך ולא נשלחים לשרת</span></div>
+</div>
+  <div class="read" style="margin-block-start:2.5rem">
+    <h2 class="h-sm">איך למלא נכון</h2>
+    <div class="prose" style="padding-block-start:1rem">
+      <ul><li><strong>לקוחות פעילות</strong> — מי שנכנסה לפחות פעם אחת בחודש שקדם. לא מי שרשומה במערכת.</li><li><strong>נטשו החודש</strong> — מנוי שלא חודש, או לקוחה שלא נכנסה מעל התקופה שהגדרתן כנטישה.</li><li><strong>תרומה חודשית ללקוחה</strong> — ההכנסה החודשית ממנה פחות העלויות המשתנות שהיא גוררת.</li><li><strong>עלות גיוס</strong> — כל ההוצאה על גיוס חלקי מספר הלקוחות המשלמות שנוצרו ממנה — כולל הזמן שלכן.</li></ul>
+    </div>
+    <p style="margin-block-start:1.75rem"><a class="btn" href="../../a/netisha/index.html">הניתוח המלא מאחורי המחשבון</a></p>
+  </div>
+</div></section>
+<section class="section"><div class="wrap">
+  <div class="section-head"><h2>שאר הכלים</h2><span class="rule"></span></div>
+  <div class="tools-row">
+    
+    <a class="tool-card" href="../unit-economics/index.html">
+      <span class="tool-ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 12h2m4 0h2M8 16h2m4 0h2"/></svg></span>
+      <span class="tool-title">יחידת כלכלה</span>
+      <span class="tool-blurb">כמה נשאר לך מכל שיעור אחרי מדריכה, שכירות וחשמל.</span>
+      <span class="mono mono--accent tool-go">פתיחת המחשבון</span>
+    </a>
+    <a class="tool-card" href="../pricing/index.html">
+      <span class="tool-ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg></span>
+      <span class="tool-title">תמחור</span>
+      <span class="tool-blurb">המחיר לראש שמכסה את העלויות ואת הרווח שהצבת כיעד.</span>
+      <span class="mono mono--accent tool-go">פתיחת המחשבון</span>
+    </a>
+  </div>
+</div></section>
+</main>
+<footer class="foot"><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="wordmark wordmark--foot" href="../../index.html">
+        <span class="wordmark-he">הרצפה</span>
+        <span class="wordmark-latin">THE FLOOR</span>
+      </a>
+      <p class="foot-blurb">מודיעין עסקי לתעשיית הכושר בישראל — תמחור, נטישה, גיוס, שכר מדריכים ותזרים. פעם בשבוע, עם המספרים גלויים.</p>
+      <p class="mono" style="margin-block-start:1rem">ללא תוכן ממומן · ללא עמלות ספקים</p>
+    </div>
+    <div>
+      <h4>לקרוא</h4>
+      <ul>
+        <li><a href="../../index.html">הגיליון</a></li>
+        <li><a href="../../archive/index.html">ארכיון</a></li>
+        <li><a href="../../about/index.html">על הרצפה</a></li>
+        <li><a href="../../feed.xml">RSS</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>כלים</h4>
+      <ul>
+        <li><a href="../../tools/unit-economics/index.html">יחידת כלכלה</a></li>
+        <li><a href="../../tools/churn/index.html">נטישה ו-LTV</a></li>
+        <li><a href="../../tools/pricing/index.html">תמחור</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>המנוי</h4>
+      <ul>
+        <li><a href="../../subscribe/index.html">מסלולים</a></li>
+        <li><a href="../../account/index.html">החשבון שלי</a></li>
+        <li><a href="../../terms/index.html">תנאי שימוש</a></li>
+        <li><a href="../../privacy/index.html">פרטיות</a></li>
+        <li><a href="mailto:hello@example.co.il">hello@example.co.il</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span class="mono">2026 &copy; הרצפה · רומי</span>
+    <span class="mono">מה שקורה באמת על רצפת הסטודיו</span>
+  </div>
+</div></footer>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

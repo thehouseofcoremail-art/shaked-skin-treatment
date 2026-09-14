@@ -1,11 +1,11 @@
 {
   "_comment": "נקודת העריכה היחידה. שינוי כאן מתגלגל לכל האתר אחרי npm run build.",
   "brand": {
-    "name": "מאחורי המראות",
-    "latin": "BEHIND THE MIRRORS",
-    "tagline": "מודיעין עסקי לתעשיית הכושר בישראל",
-    "description": "מה באמת קורה במספרים של סטודיו בוטיק, רשת כושר ומכון בישראל — תמחור, נטישה, שכר מדריכים ותזרים. פעם בשבוע, בלי קשקוש.",
-    "domain": "https://mirrors.example.co.il",
+    "name": "הרצפה",
+    "latin": "THE FLOOR",
+    "tagline": "מה שקורה באמת על רצפת הסטודיו",
+    "description": "מודיעין עסקי לתעשיית הכושר בישראל — תמחור, נטישה, גיוס, שכר מדריכים ותזרים. פעם בשבוע, עם המספרים גלויים.",
+    "domain": "https://thefloor.example.co.il",
     "locale": "he-IL",
     "launchIssue": 1
   },
