@@ -528,7 +528,8 @@ const articles = readdirSync(join(ROOT, "content/articles"))
       bodyHtml: bodyRaw.trim() ? md(bodyRaw, SHORTCODES) : "",
     };
   })
-  .sort((a, b) => (a.date < b.date ? 1 : -1));
+  // תאריך יורד, ובתוך אותו תאריך שם הקובץ יורד — כדי שסדר גיליון יהיה קבוע ולא אקראי
+  .sort((a, b) => (a.date === b.date ? (a.file < b.file ? 1 : -1) : a.date < b.date ? 1 : -1));
 
 const pages = Object.fromEntries(
   readdirSync(join(ROOT, "content/pages")).filter((f) => f.endsWith(".md")).map((f) => {
