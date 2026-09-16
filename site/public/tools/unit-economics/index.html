@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>יחידת כלכלה · המרווח</title>
+<meta name="description" content="כמה נשאר לך מכל שיעור אחרי מדריכה, שכירות וחשמל." />
+<link rel="canonical" href="https://themargin.example.co.il/tools/unit-economics/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="המרווח" />
+<meta property="og:title" content="יחידת כלכלה · המרווח" />
+<meta property="og:description" content="כמה נשאר לך מכל שיעור אחרי מדריכה, שכירות וחשמל." />
+<meta property="og:locale" content="he_IL" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0B0F'/%3E%3Cpath d='M8 4v24M24 4v24' stroke='%239DB4FF' stroke-width='2.6'/%3E%3Cpath d='M8 16h16' stroke='%23F0B429' stroke-width='2.8'/%3E%3C/svg%3E" />
+<link rel="alternate" type="application/rss+xml" title="המרווח" href="../../feed.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&amp;family=Assistant:wght@300;400;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
+<link rel="stylesheet" href="../../assets/site.css" />
+
+
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../../index.html">
+      <span class="wordmark-he">המרווח</span>
+      <span class="wordmark-latin">THE MARGIN</span>
+    </a>
+    <nav class="mnav" aria-label="ראשי">
+      <a href="../../index.html">הגיליון</a>
+      <a href="../../archive/index.html">ארכיון</a>
+      <a href="../../tools/index.html">מחשבונים</a>
+      <a href="../../about/index.html">על המרווח</a>
+    </nav>
+    <a class="btn btn--ghost btn--sm mnav-account" href="../../account/index.html">כניסה</a>
+    <a class="btn btn--solid btn--sm" href="../../subscribe/index.html">מנוי</a>
+  </div>
+</header>
+<main id="main">
+<section class="hero hero--slim">
+  <canvas class="contours" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <div class="kicker"><span class="chip chip--free">פתוח לכולן</span><span class="rule"></span><span class="mono">מחשבון</span></div>
+    <h1>יחידת כלכלה</h1>
+    <p class="dek">כמה נשאר לך מכל שיעור אחרי מדריכה, שכירות וחשמל.</p>
+  </div>
+</section>
+<section class="section"><div class="wrap">
+  <div class="calc" data-calc="unit">
+  <div class="calc-head">
+    <h3>יחידת כלכלה</h3>
+    <span class="mono">שיעור אחד · תרומה נטו</span>
+  </div>
+  <div class="calc-body">
+    <div class="calc-inputs">
+      <div class="field">
+        <label for="unit-rev">הכנסה לראש</label>
+        <input type="number" id="unit-rev" data-f="rev" value="75" data-default="75" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="unit-cap">מקומות בשיעור</label>
+        <input type="number" id="unit-cap" data-f="cap" value="12" data-default="12" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="unit-fill">מלאות ממוצעת %</label>
+        <input type="number" id="unit-fill" data-f="fill" value="68" data-default="68" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="unit-coach">עלות מדריכה לשיעור</label>
+        <input type="number" id="unit-coach" data-f="coach" value="180" data-default="180" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="unit-vari">עלות משתנה לראש</label>
+        <input type="number" id="unit-vari" data-f="vari" value="6" data-default="6" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="unit-fixed">עלות קבועה לשעה</label>
+        <input type="number" id="unit-fixed" data-f="fixed" value="95" data-default="95" min="0" step="any" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label for="unit-classes">שיעורים בשבוע</label>
+        <input type="number" id="unit-classes" data-f="classes" value="28" data-default="28" min="0" step="any" inputmode="decimal" />
+      </div>
+    </div>
+    <div class="calc-out">
+      <div class="out-row">
+        <span class="k">משתתפות בשיעור</span><span class="v" data-out="heads">—</span>
+      </div>
+      <div class="out-row">
+        <span class="k">הכנסה מהשיעור</span><span class="v" data-out="income">—</span>
+      </div>
+      <div class="out-row out-row--hero">
+        <span class="k">תרומה נטו לשיעור</span><span class="v" data-out="contribution">—</span>
+      </div>
+      <div class="out-row">
+        <span class="k">נקודת איזון</span><span class="v" data-out="breakeven">—</span>
+      </div>
+      <div class="out-row">
+        <span class="k">תרומה חודשית מהלוח</span><span class="v" data-out="monthly">—</span>
+      </div>
+      <div class="gauge">
+        <div class="gauge-track"><div class="gauge-fill" data-out="gauge" style="width:0"></div></div>
+        <div class="gauge-legend">
+          <span class="mono" data-out="legend">—</span>
+          <button class="linkbtn mono" type="button" data-calc-reset>איפוס</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-foot"><span class="mono">ברירות המחדל הן המחשה בלבד, לא נתוני שוק · הנתונים נשמרים בדפדפן שלך ולא נשלחים לשרת</span></div>
+</div>
+  <div class="read" style="margin-block-start:2.5rem">
+    <h2 class="h-sm">איך למלא נכון</h2>
+    <div class="prose" style="padding-block-start:1rem">
+      <ul><li><strong>הכנסה לראש</strong> — סך ההכנסות משיעורים בשלושת החודשים האחרונים, חלקי מספר הכניסות בפועל. לא המחיר במחירון.</li><li><strong>מלאות ממוצעת</strong> — על כל הלוח, כולל המשבצות החלשות. לא על שיעור הדגל.</li><li><strong>עלות מדריכה</strong> — עלות מעסיק מלאה. לשכירה, הוסיפו כשליש מעל הברוטו.</li><li><strong>עלות קבועה לשעה</strong> — שכירות, ארנונה, חשמל, תוכנה, ביטוח ורואה חשבון לחודש, חלקי שעות הפתיחה בפועל.</li></ul>
+    </div>
+    <p style="margin-block-start:1.75rem"><a class="btn" href="../../a/kama-nishar-mishiur/index.html">הניתוח המלא מאחורי המחשבון</a></p>
+  </div>
+</div></section>
+<section class="section"><div class="wrap">
+  <div class="section-head"><h2>שאר הכלים</h2><span class="rule"></span></div>
+  <div class="tools-row">
+    
+    <a class="tool-card" href="../churn/index.html">
+      <span class="tool-ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 4-6 5 4"/><path d="M3 21h18"/></svg></span>
+      <span class="tool-title">נטישה ו-LTV</span>
+      <span class="tool-blurb">אורך החיים של לקוחה, הערך שלה, וכמה מותר להוציא כדי לגייס אותה.</span>
+      <span class="mono mono--accent tool-go">פתיחת המחשבון</span>
+    </a>
+    <a class="tool-card" href="../pricing/index.html">
+      <span class="tool-ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg></span>
+      <span class="tool-title">תמחור</span>
+      <span class="tool-blurb">המחיר לראש שמכסה את העלויות ואת הרווח שהצבת כיעד.</span>
+      <span class="mono mono--accent tool-go">פתיחת המחשבון</span>
+    </a>
+  </div>
+</div></section>
+</main>
+<footer class="foot"><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="wordmark wordmark--foot" href="../../index.html">
+        <span class="wordmark-he">המרווח</span>
+        <span class="wordmark-latin">THE MARGIN</span>
+      </a>
+      <p class="foot-blurb">מודיעין עסקי לתעשיית הכושר בישראל — תמחור, נטישה, גיוס, שכר מדריכים ותזרים. פעם בשבוע, עם המספרים גלויים.</p>
+      <p class="mono" style="margin-block-start:1rem">ללא תוכן ממומן · ללא עמלות ספקים</p>
+    </div>
+    <div>
+      <h4>לקרוא</h4>
+      <ul>
+        <li><a href="../../index.html">הגיליון</a></li>
+        <li><a href="../../archive/index.html">ארכיון</a></li>
+        <li><a href="../../about/index.html">על המרווח</a></li>
+        <li><a href="../../feed.xml">RSS</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>כלים</h4>
+      <ul>
+        <li><a href="../../tools/unit-economics/index.html">יחידת כלכלה</a></li>
+        <li><a href="../../tools/churn/index.html">נטישה ו-LTV</a></li>
+        <li><a href="../../tools/pricing/index.html">תמחור</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>המנוי</h4>
+      <ul>
+        <li><a href="../../subscribe/index.html">מסלולים</a></li>
+        <li><a href="../../account/index.html">החשבון שלי</a></li>
+        <li><a href="../../terms/index.html">תנאי שימוש</a></li>
+        <li><a href="../../privacy/index.html">פרטיות</a></li>
+        <li><a href="mailto:hello@example.co.il">hello@example.co.il</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span class="mono">2026 &copy; המרווח · רומי</span>
+    <span class="mono">מה נשאר בסוף החודש</span>
+  </div>
+</div></footer>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
