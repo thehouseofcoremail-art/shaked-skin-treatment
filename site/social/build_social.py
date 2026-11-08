@@ -283,6 +283,73 @@ def slide_hook(a, index, total):
     return img
 
 
+def slide_hero(a, figure, label, index, total):
+    """שקף פתיחה למספר אחד. המספר הוא עוצר הגלילה, לא הכותרת.
+
+    לפי כללי התצוגה: ערך בודד הוא אריח מדד, לא גרף עמודה אחת, והמספר
+    שמובילים איתו הוא Hero figure. אין כאן סדרות, ולכן אקסנט אחד
+    וטקסט בטוקנים של טקסט — לא המספר בצבע של סדרה."""
+    img, d = new_slide(a["slug"], a["category"], 0.55)
+    right = W - MARGIN
+    maxw = W - MARGIN * 2
+    chrome(img, d, a, "// THE MARGIN", index, total, a["date_he"])
+
+    # המספר נמתח עד רוחב העמוד
+    size = 300
+    while MONO(size).getlength(figure, direction="ltr") > maxw * 0.9 and size > 80:
+        size -= 6
+    fnum = MONO(size)
+
+    label_lines = wrap(label, BODY(38), maxw)
+    tfont, tlines = fit(a["title"], maxw, 4, 54, floor=34)
+    block = size * 1.05 + 30 + len(label_lines) * 54 + 50 + len(tlines) * tfont.size * 1.18
+    y = max(MARGIN + 150, (H - block) / 2 - 30)
+
+    d.text((right - fnum.getlength(figure, direction="ltr"), y), figure,
+           font=fnum, fill=ACCENT, direction="ltr")
+    y += size * 1.05 + 30
+
+    for ln in label_lines:
+        draw_rtl(d, ln, right, y, BODY(38), PAPER)
+        y += 54
+
+    y += 22
+    d.line([(right - 150, y), (right, y)], fill=SIGNAL, width=4)
+    y += 34
+
+    for ln in tlines:
+        draw_rtl(d, ln, right, y, tfont, MUTED)
+        y += tfont.size * 1.18
+    return img
+
+
+def slide_stats(a, stats, index, total):
+    """שורת מדדים: כמה מספרי כותרת, כל אחד אריח — לא פסקה ולא גרף מקובץ."""
+    img, d = new_slide(a["slug"], a["category"], 0.3)
+    right = W - MARGIN
+    chrome(img, d, a, "// THE MARGIN", index, total, "%s דק׳ קריאה" % a["readingTime"])
+
+    tile = 230
+    block = len(stats) * tile
+    y = max(MARGIN + 150, (H - block) / 2 - 20)
+
+    for i, (figure, label) in enumerate(stats):
+        if i:
+            d.line([(MARGIN, y - 26), (W - MARGIN, y - 26)], fill=ACCENT + (46,), width=1)
+        size = 108
+        while MONO(size).getlength(figure, direction="ltr") > W - MARGIN * 2 - 40 and size > 40:
+            size -= 4
+        f = MONO(size)
+        d.text((right - f.getlength(figure, direction="ltr"), y), figure,
+               font=f, fill=ACCENT, direction="ltr")
+        yy = y + size * 1.1 + 12
+        for ln in wrap(label, BODY(34), W - MARGIN * 2)[:2]:
+            draw_rtl(d, ln, right, yy, BODY(34), MUTED)
+            yy += 46
+        y += tile
+    return img
+
+
 def slide_body(a, text, index, total, eyebrow=""):
     img, d = new_slide(a["slug"], a["category"], 0.35)
     right = W - MARGIN
@@ -309,23 +376,28 @@ def slide_formula(a, formula, index, total):
     chrome(img, d, a, "// THE MARGIN", index, total, "הנוסחה")
 
     lines = [l for l in formula.split("\n") if l.strip()]
-    box_h = len(lines) * 62 + 80
+    inner_w = W - MARGIN * 2 - 80
+    rows = sum(max(1, len(wrap(l, LABEL(l, 40), inner_w))) for l in lines)
+    box_h = rows * 62 + 80
     y = max(MARGIN + 190, (H - box_h - 90) / 2)
 
     draw_rtl(d, "החישוב עצמו", right, y, BODY(28), SIGNAL)
     y += 90
     d.rectangle([MARGIN, y, W - MARGIN, y + box_h], fill=PANEL + (235,), outline=ACCENT + (70,), width=2)
     yy = y + 40
+    inner = W - MARGIN * 2 - 80
     for ln in lines:
+        # לא מצטמקים מתחת לגודל קריא — משם והלאה שוברים שורה
         size = 40
-        while measure(ln, LABEL(ln, size)) > W - MARGIN * 2 - 80 and size > 18:
+        while measure(ln, LABEL(ln, size)) > inner and size > 30:
             size -= 2
         font = LABEL(ln, size)
-        if is_rtl(ln):
-            draw_rtl(d, ln, W - MARGIN - 40, yy, font, ACCENT)
-        else:
-            d.text((MARGIN + 40, yy), ln, font=font, fill=ACCENT, direction="ltr")
-        yy += 62
+        for part in wrap(ln, font, inner):
+            if is_rtl(part):
+                draw_rtl(d, part, W - MARGIN - 40, yy, font, ACCENT)
+            else:
+                d.text((MARGIN + 40, yy), part, font=font, fill=ACCENT, direction="ltr")
+            yy += 62
     return img
 
 
@@ -408,6 +480,23 @@ def parse_article(path):
 
     paragraphs = [clean(p) for p in re.split(r"\n\s*\n", free)
                   if p.strip() and not p.strip().startswith(("#", ">", "-", "|", "{{", "```"))]
+
+    # hero:  <מספר> · <מה הוא מודד>
+    hero = None
+    if meta.get("hero"):
+        parts = [x.strip() for x in meta["hero"].split("·", 1)]
+        if len(parts) == 2:
+            hero = (parts[0], parts[1])
+
+    # stats: [<מספר> | <תווית>, ...]
+    stats = []
+    raw = meta.get("stats", "")
+    if raw.startswith("["):
+        for item in raw[1:-1].split(","):
+            if "|" in item:
+                fig, lab = item.split("|", 1)
+                stats.append((fig.strip(), lab.strip()))
+    meta["_hero"], meta["_stats"] = hero, stats
     formulas = re.findall(r"```\n(.*?)```", free + "\n" + paid, re.S)
     headings = [clean(h) for h in re.findall(r"^##\s+(.*)$", paid, re.M)]
     return meta, paragraphs, formulas, headings
@@ -433,7 +522,14 @@ def build(slug_filter=None, with_toc=True):
         }
 
         # שקף לכל פסקה מהחלק הפתוח, עד שלוש — הן הטיזר, לא המוצר
-        body_texts = [p for p in paragraphs[:3] if len(p) > 40]
+        hero, stats = meta.get("_hero"), meta.get("_stats") or []
+
+        body_texts = [p for p in paragraphs[:4] if len(p) > 40]
+        # פסקה שחוזרת על אותם מספרים שכבר מופיעים כאריחים היא כפילות
+        if stats:
+            body_texts = [t for t in body_texts
+                          if not all(fig in t for fig, _ in stats)]
+        body_texts = body_texts[:3]
 
         # שמירה אקטיבית: אף משפט מהחלק בתשלום לא מגיע לשקף.
         # כותרות משנה מותרות במפורש — הן תוכן עניינים, לא הניתוח.
@@ -444,7 +540,10 @@ def build(slug_filter=None, with_toc=True):
                 sentence = sentence.strip()
                 if len(sentence) >= 45 and sentence in paid_prose:
                     raise SystemExit("דליפה: משפט בתשלום הגיע לשקף של %s\n  %s" % (slug, sentence[:70]))
-        plan = ["hook"] + ["body"] * len(body_texts)
+        plan = ["hero" if hero else "hook"]
+        if stats:
+            plan.append("stats")
+        plan += ["body"] * len(body_texts)
         if formulas:
             plan.append("formula")
         if with_toc and headings:
@@ -461,6 +560,10 @@ def build(slug_filter=None, with_toc=True):
         for i, kind in enumerate(plan, 1):
             if kind == "hook":
                 img = slide_hook(a, i, total)
+            elif kind == "hero":
+                img = slide_hero(a, hero[0], hero[1], i, total)
+            elif kind == "stats":
+                img = slide_stats(a, stats, i, total)
             elif kind == "body":
                 img = slide_body(a, body_texts[bi], i, total)
                 bi += 1
