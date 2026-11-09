@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="800" height="460" role="img" aria-label="">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#14161D"/><stop offset="1" stop-color="#0A0B0F"/></linearGradient></defs>
+<rect width="800" height="460" fill="url(#g)"/>
+<g fill="none" stroke="#9DB4FF" color="#9DB4FF" stroke-width="1.1">
+<line x1="0" y1="267" x2="800" y2="267" opacity=".3"/>
+<line x1="509.1" y1="0" x2="509.1" y2="460" opacity=".3"/>
+<circle cx="236.2" cy="208.1" r="6.9" opacity="0.5"/>
+<circle cx="288.9" cy="150.3" r="11.4" opacity="0.5"/>
+<circle cx="271.3" cy="242.6" r="3.4" opacity="0.5"/>
+<circle cx="111.8" cy="166.1" r="11.5" opacity="0.6"/>
+<circle cx="588.9" cy="96.4" r="10.1" opacity="0.3"/>
+<circle cx="55.6" cy="114.9" r="6.3" opacity="0.4"/>
+<circle cx="670.8" cy="152.6" r="8" opacity="0.5"/>
+<circle cx="259.5" cy="103" r="8.6" opacity="0.2"/>
+<circle cx="100" cy="362.6" r="7.2" opacity="0.3"/>
+<circle cx="56.3" cy="265.8" r="6.7" opacity="0.2"/>
+<circle cx="75.1" cy="129" r="5" opacity="0.5"/>
+<circle cx="478.6" cy="176.3" r="8.1" opacity="0.3"/>
+<circle cx="613.7" cy="411.6" r="3.8" opacity="0.5"/>
+<circle cx="548.7" cy="264.7" r="11.1" opacity="0.5"/>
+<circle cx="378.3" cy="162.7" r="7.5" opacity="0.5"/>
+<circle cx="239" cy="375.8" r="10.2" opacity="0.5"/>
+<circle cx="59.2" cy="162.7" r="10.3" opacity="0.4"/>
+<circle cx="198.4" cy="248.5" r="8" opacity="0.5"/>
+<circle cx="480.3" cy="411.8" r="7.8" opacity="0.4"/>
+<circle cx="387.6" cy="398.3" r="4.6" opacity="0.4"/>
+<circle cx="398.7" cy="201.8" r="6.4" opacity="0.4"/>
+<circle cx="344" cy="236.3" r="11.1" opacity="0.5"/>
+<circle cx="499" cy="167.3" r="10.4" opacity="0.5"/>
+<circle cx="236.2" cy="208.1" r="13" fill="#F0B429" stroke="none" opacity=".85"/>
+<circle cx="236.2" cy="208.1" r="26" stroke="#F0B429" opacity=".45"/>
+</g></svg>

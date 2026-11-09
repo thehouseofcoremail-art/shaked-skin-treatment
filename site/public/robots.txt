@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://themargin.example.co.il/sitemap.xml

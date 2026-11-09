@@ -1,0 +1,10 @@
+# העתיקו ל-.dev.vars לפיתוח מקומי. הקובץ הזה לא נכנס ל-git.
+SESSION_SECRET="החליפו-במחרוזת-אקראית-ארוכה"
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_WEBHOOK_SECRET="whsec_..."
+STRIPE_PRICE_MONTHLY="price_..."
+STRIPE_PRICE_ANNUAL="price_..."
+STRIPE_PRICE_TEAM="price_..."
+RESEND_API_KEY="re_..."
+MAIL_FROM="מאחורי המראות <hello@example.co.il>"
+FREE_ARTICLES_PER_MONTH="2"

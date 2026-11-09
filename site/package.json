@@ -1,0 +1,19 @@
+{
+  "name": "the-margin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "המרווח — מגזין מנויים על הצד העסקי של תעשיית הכושר בישראל",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:preview": "node build.mjs --demo",
+    "test": "node test/auth.test.mjs && node build.mjs >/dev/null && node test/links.test.mjs && node test/paywall.test.mjs",
+    "dev": "npx wrangler pages dev public --compatibility-date=2026-01-01",
+    "deploy": "npm run build && npx wrangler pages deploy public",
+    "test:ui": "node build.mjs --demo && node test/ui.test.mjs",
+    "social": "python3 social/build_social.py"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

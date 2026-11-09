@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="800" height="460" role="img" aria-label="">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#14161D"/><stop offset="1" stop-color="#0A0B0F"/></linearGradient></defs>
+<rect width="800" height="460" fill="url(#g)"/>
+<g fill="none" stroke="#9DB4FF" color="#9DB4FF" stroke-width="1.1">
+<circle cx="595.4" cy="480.1" r="61.3" opacity="0.5"/>
+<circle cx="595.4" cy="480.1" r="122.7" opacity="0.4"/>
+<circle cx="595.4" cy="480.1" r="184" opacity="0.4"/>
+<circle cx="595.4" cy="480.1" r="245.3" opacity="0.4"/>
+<circle cx="595.4" cy="480.1" r="306.7" opacity="0.3"/>
+<circle cx="595.4" cy="480.1" r="368" opacity="0.3"/>
+<circle cx="595.4" cy="480.1" r="429.3" opacity="0.3"/>
+<circle cx="595.4" cy="480.1" r="490.7" opacity="0.2"/>
+<circle cx="595.4" cy="480.1" r="552" opacity="0.2"/>
+<circle cx="595.4" cy="480.1" r="613.3" opacity="0.2"/>
+<circle cx="595.4" cy="480.1" r="674.7" opacity="0.1"/>
+<circle cx="595.4" cy="480.1" r="736" opacity="0.1"/>
+<circle cx="595.4" cy="480.1" r="797.3" opacity="0.1"/>
+</g></svg>
