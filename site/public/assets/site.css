@@ -409,3 +409,60 @@ input::placeholder{ color:#5B6076; }
 .foot a{ color:var(--paper-dim); text-decoration:none; font-size:.9rem; }
 .foot a:hover{ color:var(--accent); }
 .foot-base{ margin-block-start:2.5rem; padding-block-start:1.5rem; border-block-start:1px solid var(--line); display:flex; flex-wrap:wrap; gap:.75rem 1.5rem; justify-content:space-between; }
+
+/* ---------- מונחים באנגלית ---------- */
+.term{
+  color:inherit; text-decoration:none; white-space:nowrap;
+  border-block-end:1px dashed var(--accent-dim);
+  padding-block-end:1px; cursor:help;
+}
+.term:hover,.term:focus-visible{ color:var(--accent-hi); border-block-end-color:var(--accent); }
+
+/* כרטיסיית ההגדרה — נפתחת במקום, בלי לעזוב את הכתבה */
+.termpop{
+  position:absolute; z-index:60; inline-size:min(21rem,calc(100vw - 2rem));
+  background:var(--panel-2); border:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  border-radius:4px; padding:1rem 1.1rem; box-shadow:0 18px 48px rgba(0,0,0,.55);
+}
+.termpop-t{ font-family:var(--mono); font-size:1.05rem; color:var(--accent); letter-spacing:.02em; }
+.termpop-he{ margin-block-start:.3rem; font-size:.95rem; color:var(--paper); font-weight:600; }
+.termpop-en{ margin-block-start:.15rem; font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; color:var(--muted); }
+.termpop-why{ margin-block-start:.7rem; font-size:.88rem; font-weight:300; color:var(--paper-dim); }
+.termpop-go{ display:inline-block; margin-block-start:.85rem; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; color:var(--accent); text-decoration:none; }
+.termpop-go:hover{ color:var(--accent-hi); }
+.termpop-x{
+  position:absolute; inset-block-start:.4rem; inset-inline-end:.4rem;
+  background:none; border:0; color:var(--muted); font-size:1.1rem; line-height:1;
+  padding:.25rem .4rem; cursor:pointer;
+}
+.termpop-x:hover{ color:var(--paper); }
+
+/* ---------- עמוד המילון ---------- */
+.gloss-nav{ display:flex; flex-wrap:wrap; gap:.5rem; margin-block-end:2.5rem; }
+.gloss-nav a{
+  border:1px solid var(--line); border-radius:3px; padding:.4rem .7rem;
+  font-size:.72rem; letter-spacing:.08em; color:var(--paper-dim); text-decoration:none;
+}
+.gloss-nav a:hover{ border-color:var(--accent); color:var(--accent); }
+
+.gloss{
+  display:grid; grid-template-columns:minmax(0,13rem) minmax(0,1fr); gap:2rem 2.5rem;
+  padding-block:2.25rem; border-block-start:1px solid var(--line); scroll-margin-block-start:6rem;
+}
+.gloss:target .gloss-term{ color:var(--accent-hi); }
+@media (max-width:760px){ .gloss{ grid-template-columns:1fr; gap:1.25rem; } }
+.gloss-term{
+  font-family:var(--mono); font-size:clamp(1.6rem,4vw,2.2rem); font-weight:500;
+  color:var(--accent); letter-spacing:.01em; line-height:1.1; direction:ltr; text-align:start;
+}
+.gloss-he{ margin-block-start:.6rem; font-size:1rem; font-weight:600; color:var(--paper); }
+.gloss-en{ margin-block-start:.35rem; font-size:.6rem; letter-spacing:.07em; color:var(--muted); direction:ltr; text-align:start; }
+/* הסלקטור כפול בכוונה: .prose h3 ספציפי יותר ממחלקה בודדת, והיה גובר */
+.gloss-body .gloss-label{
+  font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; font-weight:500;
+  color:var(--accent); margin-block:1.6rem .6rem;
+}
+.gloss-body .gloss-label:first-child{ margin-block-start:0; }
+.gloss-parts{ margin:0; display:grid; gap:.9rem; }
+.gloss-parts dt{ font-weight:700; color:var(--paper); font-size:.95rem; }
+.gloss-parts dd{ margin:.2rem 0 0; color:var(--paper-dim); font-weight:300; font-size:.92rem; }

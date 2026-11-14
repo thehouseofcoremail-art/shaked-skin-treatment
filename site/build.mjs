@@ -15,6 +15,10 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const DEMO = process.argv.includes("--demo");
 const cfg = JSON.parse(readFileSync(join(ROOT, "site.config.json"), "utf8"));
 const FAQ = JSON.parse(readFileSync(join(ROOT, "content/faq.json"), "utf8"));
+const GLOSSARY = Object.fromEntries(
+  Object.entries(JSON.parse(readFileSync(join(ROOT, "content/glossary.json"), "utf8")))
+    .filter(([k]) => !k.startsWith("_")),
+);
 const warnings = [];
 
 /* ------------------------------------------------------------------ md */
@@ -120,6 +124,40 @@ const rel = (depth) => "../".repeat(depth);
 const dateHe = (iso) => { const [y, m, d] = iso.split("-"); return `${d}.${m}.${y}`; };
 const words = (s) => s.split(/\s+/).filter(Boolean).length;
 const pad2 = (n) => String(n).padStart(2, "0");
+
+/* ------------------------------------------------------- מונחים באנגלית
+ * קיצור באנגלית בתוך טקסט עברי הוא חומה. המופע הראשון בכל עמוד מקושר
+ * להגדרה, ומקבל כרטיסייה שנפתחת במקום בלי לעזוב את הכתבה.
+ */
+const termId = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const TERM_RE = new RegExp(
+  "(?<![A-Za-z0-9])(" +
+    Object.keys(GLOSSARY)
+      .sort((a, b) => b.length - a.length)
+      .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join("|") +
+    ")(?![A-Za-z0-9])",
+  "g",
+);
+
+/** מקשר את המופע הראשון של כל מונח. תגיות, קישורים קיימים וקוד לא נגעים —
+ *  רק טקסט גלוי, אחרת היינו שותלים HTML בתוך ערך של מאפיין. */
+function linkTerms(html, depth, seen = new Set()) {
+  const r = rel(depth);
+  return String(html).replace(
+    /(<a\b[^>]*>[\s\S]*?<\/a>|<code\b[^>]*>[\s\S]*?<\/code>|<pre\b[^>]*>[\s\S]*?<\/pre>|<[^>]+>)|([^<]+)/g,
+    (_m, keep, text) => {
+      if (keep !== undefined) return keep;
+      return text.replace(TERM_RE, (t) => {
+        if (seen.has(t)) return t;
+        seen.add(t);
+        const g = GLOSSARY[t];
+        return `<a class="term" href="${r}glossary/index.html#${termId(t)}"` +
+          ` data-term="${esc(t)}" title="${esc(g.he)}">${t}</a>`;
+      });
+    },
+  );
+}
 
 /* ------------------------------------------------- עטיפות גרפיות לכתבות
  * כל כתבה מקבלת דפוס שנגזר דטרמיניסטית מה-slug שלה, במשפחה שנקבעת
@@ -297,6 +335,7 @@ function footer(depth) {
       <ul>
         <li><a href="${r}index.html">הגיליון</a></li>
         <li><a href="${r}archive/index.html">ארכיון</a></li>
+        <li><a href="${r}glossary/index.html">מילון מונחים</a></li>
         <li><a href="${r}about/index.html">על המרווח</a></li>
         <li><a href="${r}feed.xml">RSS</a></li>
       </ul>
@@ -325,6 +364,9 @@ function footer(depth) {
     <span class="mono">${esc(cfg.brand.tagline)}</span>
   </div>
 </div></footer>
+<script type="application/json" id="glossary">${JSON.stringify(
+    Object.fromEntries(Object.entries(GLOSSARY).map(([k, g]) => [k, { he: g.he, en: g.en, why: g.why }])),
+  ).replace(/</g, "\\u003c")}</script>
 <script src="${r}assets/site.js"></script>
 </body>
 </html>`;
@@ -512,6 +554,9 @@ const articles = readdirSync(join(ROOT, "content/articles"))
     if (!data.premium && bodyRaw.trim()) { ledeRaw = ledeRaw + "\n\n" + bodyRaw; bodyRaw = ""; }
     if (data.status === "seed") warnings.push(`טיוטת זרע: content/articles/${f} — להחליף בדיווח שלך לפני עלייה לאוויר`);
     if (data.premium && !bodyRaw.trim()) warnings.push(`כתבה בתשלום בלי סימון paywall: ${f}`);
+    // סט אחד לכתבה: המונח מקושר במופע הראשון שלו, בפתיח או בגוף,
+    // ולא שוב — הכתבה כולה היא עמוד אחד מבחינת הקורא.
+    const termsSeen = new Set();
     return {
       file: f,
       slug: data.slug,
@@ -524,8 +569,8 @@ const articles = readdirSync(join(ROOT, "content/articles"))
       status: data.status || "",
       tags: data.tags || [],
       readingTime: data.readingTime || Math.max(1, Math.round(words(body) / 200)),
-      ledeHtml: md(ledeRaw, SHORTCODES),
-      bodyHtml: bodyRaw.trim() ? md(bodyRaw, SHORTCODES) : "",
+      ledeHtml: linkTerms(md(ledeRaw, SHORTCODES), 2, termsSeen),
+      bodyHtml: bodyRaw.trim() ? linkTerms(md(bodyRaw, SHORTCODES), 2, termsSeen) : "",
     };
   })
   // תאריך יורד, ובתוך אותו תאריך שם הקובץ יורד — כדי שסדר גיליון יהיה קבוע ולא אקראי
@@ -857,7 +902,7 @@ ${masthead(2)}
   <div class="read" style="margin-block-start:2.5rem">
     <h2 class="h-sm">איך למלא נכון</h2>
     <div class="prose" style="padding-block-start:1rem">
-      <ul>${TOOL_HELP[id].map(([t, d]) => `<li><strong>${esc(t)}</strong> — ${esc(d)}</li>`).join("")}</ul>
+      <ul>${linkTerms(TOOL_HELP[id].map(([t, d]) => `<li><strong>${esc(t)}</strong> — ${esc(d)}</li>`).join(""), 2)}</ul>
     </div>
     ${linked ? `<p style="margin-block-start:1.75rem"><a class="btn" href="../../a/${linked.slug}/index.html">הניתוח המלא מאחורי המחשבון</a></p>` : ""}
   </div>
@@ -988,6 +1033,54 @@ ${masthead(depth)}
 ${footer(depth)}`;
 }
 
+function glossaryPage() {
+  const entries = Object.entries(GLOSSARY);
+  const jsonld = JSON.stringify({
+    "@context": "https://schema.org", "@type": "DefinedTermSet",
+    name: "מילון מונחים · " + cfg.brand.name, inLanguage: "he-IL",
+    hasDefinedTerm: entries.map(([term, g]) => ({
+      "@type": "DefinedTerm", name: term, alternateName: g.en, description: g.he,
+    })),
+  });
+  return `${head({ title: "מילון מונחים", desc: "כל קיצור באנגלית שמופיע בטור — מה הוא אומר, למה הוא חשוב, ואיך מחשבים אותו.", depth: 1, path: "glossary/", jsonld })}
+${masthead(1)}
+<main id="main">
+<section class="hero hero--slim">
+  <canvas class="contours" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <div class="kicker"><span class="chip chip--free">פתוח לכולם</span><span class="rule"></span><span class="mono">${entries.length} מונחים</span></div>
+    <h1>מילון מונחים</h1>
+    <p class="dek">קיצור באנגלית בתוך טקסט עברי הוא חומה. כאן כתוב מה כל אחד אומר, למה הוא חשוב, ואיך מחשבים אותו — כולל מה כל רכיב בנוסחה.</p>
+  </div>
+</section>
+<section class="section"><div class="wrap">
+  <nav class="gloss-nav" aria-label="מונחים">
+    ${entries.map(([t]) => `<a class="mono" href="#${termId(t)}">${esc(t)}</a>`).join("")}
+  </nav>
+  ${entries.map(([term, g]) => `
+  <article class="gloss" id="${termId(term)}">
+    <div class="gloss-head">
+      <h2 class="gloss-term">${esc(term)}</h2>
+      <p class="gloss-he">${esc(g.he)}</p>
+      <p class="gloss-en mono">${esc(g.en)}</p>
+    </div>
+    <div class="gloss-body prose">
+      <h3 class="gloss-label">למה זה חשוב</h3>
+      <p>${esc(g.why)}</p>
+      ${g.formula ? `<h3 class="gloss-label">איך מחשבים</h3>
+      <pre class="code"><code>${esc(g.formula)}</code></pre>` : ""}
+      ${(g.parts || []).length ? `<h3 class="gloss-label">מה בתוך הנוסחה</h3>
+      <dl class="gloss-parts">${g.parts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : ""}
+    </div>
+  </article>`).join("")}
+  <p class="mono" style="margin-block-start:2.5rem;color:var(--muted)">
+    חסר מונח? <a class="mono mono--accent" href="mailto:${esc(cfg.author.email)}">כתבו לי</a>.
+  </p>
+</div></section>
+</main>
+${footer(1)}`;
+}
+
 function notFound() {
   return `${head({ title: "לא נמצא", desc: "העמוד לא קיים", depth: 0 })}
 ${masthead(0)}
@@ -1057,6 +1150,7 @@ written.push(write("tools/index.html", toolsHubPage()));
 Object.entries(CALCS).forEach(([id, c]) => written.push(write(`tools/${c.slug}/index.html`, toolPage(id))));
 written.push(write("subscribe/index.html", subscribePage()));
 written.push(write("account/index.html", accountPage()));
+written.push(write("glossary/index.html", glossaryPage()));
 written.push(write("about/index.html", simplePage("about", 1)));
 written.push(write("terms/index.html", simplePage("terms", 1)));
 written.push(write("privacy/index.html", simplePage("privacy", 1)));

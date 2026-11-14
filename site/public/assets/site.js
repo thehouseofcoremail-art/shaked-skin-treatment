@@ -355,9 +355,68 @@
   }
 
   /* ------------------------------------------------------------- boot */
+  /* ------------------------------------------------- מונחים באנגלית
+   * קיצור באנגלית הוא חומה. לחיצה פותחת כרטיסייה במקום, בלי לעזוב את
+   * הכתבה; בלי JS הקישור עדיין מוביל למילון המלא.
+   */
+  function terms() {
+    var raw = $("#glossary");
+    if (!raw) return;
+    var data;
+    try { data = JSON.parse(raw.textContent); } catch (e) { return; }
+    var pop = null;
+
+    function close() { if (pop && pop.parentNode) pop.parentNode.removeChild(pop); pop = null; }
+
+    function open(a) {
+      var g = data[a.getAttribute("data-term")];
+      if (!g) return;
+      close();
+      pop = document.createElement("div");
+      pop.className = "termpop";
+      pop.setAttribute("role", "dialog");
+      pop.innerHTML =
+        '<button class="termpop-x" type="button" aria-label="\u05e1\u05d2\u05d9\u05e8\u05d4">\u00d7</button>' +
+        '<div class="termpop-t"></div><div class="termpop-he"></div>' +
+        '<div class="termpop-en"></div><p class="termpop-why"></p>' +
+        '<a class="termpop-go"></a>';
+      $(".termpop-t", pop).textContent = a.getAttribute("data-term");
+      $(".termpop-he", pop).textContent = g.he;
+      $(".termpop-en", pop).textContent = g.en;
+      $(".termpop-why", pop).textContent = g.why;
+      var go = $(".termpop-go", pop);
+      go.textContent = "\u05dc\u05db\u05dc \u05d4\u05e4\u05d9\u05e8\u05d5\u05d8 \u05d1\u05de\u05d9\u05dc\u05d5\u05df \u2190";
+      go.href = a.getAttribute("href");
+      document.body.appendChild(pop);
+      $(".termpop-x", pop).addEventListener("click", close);
+
+      var r = a.getBoundingClientRect();
+      var w = pop.offsetWidth;
+      var left = r.left + window.pageXOffset + r.width / 2 - w / 2;
+      var max = document.documentElement.clientWidth - w - 12;
+      pop.style.left = Math.max(12, Math.min(left, max)) + "px";
+      pop.style.top = r.bottom + window.pageYOffset + 8 + "px";
+    }
+
+    document.addEventListener("click", function (e) {
+      var el = e.target, hit = null;
+      while (el && el !== document) {
+        if (pop && el === pop) return;
+        if (el.classList && el.classList.contains("term")) { hit = el; break; }
+        el = el.parentNode;
+      }
+      if (!hit) { close(); return; }
+      e.preventDefault();
+      open(hit);
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+    window.addEventListener("resize", close);
+  }
+
   function boot() {
     $$("canvas.contours").forEach(contours);
     $$("[data-calc]").forEach(calculator);
+    terms();
     var bar = $("#progress");
     if (bar) progress(bar);
     wireCheckout();

@@ -71,6 +71,24 @@ for (const u of coverUrls) {
 }
 check("all covers serve valid SVG", badCovers.length === 0, badCovers.slice(0, 3).join(" | "));
 
+// 4d. מילון מונחים: קישור בכתבה, כרטיסייה שנפתחת במקום, ועמוד עם עוגן לכל מונח
+await page.goto("http://127.0.0.1:8099/a/benchmark/index.html", { waitUntil: "networkidle" });
+await page.waitForTimeout(300);
+check("term is linked in the article", (await page.$$("a.term")).length >= 1);
+await page.click("a.term");
+await page.waitForTimeout(250);
+check("term card opens in place", await page.isVisible(".termpop"));
+check("card carries the meaning", (await page.$eval(".termpop-he", (e) => e.textContent)).length > 5);
+await page.keyboard.press("Escape");
+await page.waitForTimeout(150);
+check("Escape closes the card", (await page.$$(".termpop")).length === 0);
+
+await page.goto("http://127.0.0.1:8099/glossary/index.html", { waitUntil: "networkidle" });
+const entries = await page.$$eval(".gloss", (els) => els.map((e) => e.id));
+check("glossary lists every term", entries.length >= 5, entries.join(","));
+const navTargets = await page.$$eval(".gloss-nav a", (as) => as.map((a) => a.getAttribute("href").slice(1)));
+check("every nav chip resolves to an entry", navTargets.every((h) => entries.includes(h)), navTargets.join(","));
+
 // 5. FAQ accordion
 await page.goto("http://127.0.0.1:8099/subscribe/index.html", { waitUntil: "networkidle" });
 const opened = await page.$$eval("details", d => d.filter(x => x.open).length);

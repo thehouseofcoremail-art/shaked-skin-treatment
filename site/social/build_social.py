@@ -613,7 +613,7 @@ def terms_in(texts, limit=2):
     blob = "\n".join(t for t in texts if t)
     found = []
     for term, g in GLOSSARY.items():
-        m = re.search(r"(?<![A-Za-z0-9-])%s(?![A-Za-z0-9-])" % re.escape(term), blob)
+        m = re.search(r"(?<![A-Za-z0-9])%s(?![A-Za-z0-9])" % re.escape(term), blob)
         if m:
             found.append((m.start(), term, g))
     return [(t, g) for _, t, g in sorted(found, key=lambda x: x[0])][:limit]
