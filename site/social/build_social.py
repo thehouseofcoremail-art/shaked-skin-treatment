@@ -401,6 +401,103 @@ def slide_formula(a, formula, index, total):
     return img
 
 
+def slide_term(a, term, g, index, total):
+    """שקף מונח, לפני שמשתמשים בו: מה הקיצור אומר — ולמה הוא בכלל חשוב.
+
+    קיצור באנגלית בתוך טקסט עברי הוא חומה. מי שלא יודע מה הוא אומר
+    מפסיק לקרוא שם, ולא בסוף."""
+    img, d = new_slide(a["slug"], a["category"], 0.45)
+    right = W - MARGIN
+    maxw = W - MARGIN * 2
+    chrome(img, d, a, "// THE MARGIN", index, total, "מונח")
+
+    size = 150
+    while MONO(size).getlength(term, direction="ltr") > maxw * 0.92 and size > 56:
+        size -= 4
+    fterm = MONO(size)
+
+    he = wrap(g["he"], BODY(40), maxw)
+    en = wrap(g["en"], MONO(25), maxw)
+    why = wrap(g["why"], BODY(35), maxw)
+    block = (size * 1.08 + 26 + len(he) * 54 + 18 + len(en) * 36
+             + 64 + 50 + len(why) * 49)
+    y = max(MARGIN + 160, (H - block) / 2 - 20)
+
+    d.text((right - fterm.getlength(term, direction="ltr"), y), term,
+           font=fterm, fill=ACCENT, direction="ltr")
+    y += size * 1.08 + 26
+
+    for ln in he:
+        draw_rtl(d, ln, right, y, BODY(40), PAPER)
+        y += 54
+    y += 18
+    for ln in en:
+        d.text((right - MONO(25).getlength(ln, direction="ltr"), y), ln,
+               font=MONO(25), fill=MUTED, direction="ltr")
+        y += 36
+
+    y += 30
+    d.line([(right - 150, y), (right, y)], fill=SIGNAL, width=4)
+    y += 34
+    draw_rtl(d, "למה זה חשוב", right, y, BODY(27), SIGNAL)
+    y += 50
+    for ln in why:
+        draw_rtl(d, ln, right, y, BODY(35), PAPER)
+        y += 49
+    return img
+
+
+def slide_term_math(a, term, g, index, total):
+    """איך מחשבים — ומה כל רכיב בנוסחה אומר.
+
+    נוסחה שמכניסה מונח לא מוסבר רק מזיזה את החומה שורה אחת למטה,
+    ולכן כל רכיב שאינו מובן מאליו מפורק כאן."""
+    img, d = new_slide(a["slug"], a["category"], 0.22)
+    right = W - MARGIN
+    chrome(img, d, a, "// THE MARGIN", index, total, "איך מחשבים")
+
+    inner = W - MARGIN * 2 - 80
+    rows = []
+    for ln in [l for l in g["formula"].split("\n") if l.strip()]:
+        size = 38
+        while measure(ln, LABEL(ln, size)) > inner and size > 24:
+            size -= 2
+        for part in wrap(ln, LABEL(ln, size), inner):
+            rows.append((part, LABEL(part, size)))
+    box_h = len(rows) * 58 + 72
+
+    parts = g.get("parts", [])
+    pw = [(lab, wrap(txt, BODY(31), W - MARGIN * 2 - 34)) for lab, txt in parts]
+    pblock = sum(46 + len(w) * 43 + 24 for _, w in pw)
+    block = 76 + box_h + (114 + pblock if parts else 0)
+    y = max(MARGIN + 165, (H - block) / 2)
+
+    draw_rtl(d, "איך מחשבים", right, y, BODY(27), SIGNAL)
+    y += 76
+    d.rectangle([MARGIN, y, W - MARGIN, y + box_h],
+                fill=PANEL + (235,), outline=ACCENT + (70,), width=2)
+    yy = y + 36
+    for ln, font in rows:
+        if is_rtl(ln):
+            draw_rtl(d, ln, W - MARGIN - 40, yy, font, ACCENT)
+        else:
+            d.text((MARGIN + 40, yy), ln, font=font, fill=ACCENT, direction="ltr")
+        yy += 58
+    y += box_h + 60
+
+    if parts:
+        draw_rtl(d, "מה בתוך הנוסחה", right, y, BODY(27), SIGNAL)
+        y += 54
+        for lab, lines in pw:
+            draw_rtl(d, lab, right, y, BODY(34), PAPER)
+            y += 46
+            for ln in lines:
+                draw_rtl(d, ln, right - 34, y, BODY(31), MUTED)
+                y += 43
+            y += 24
+    return img
+
+
 def slide_toc(a, headings, index, total):
     img, d = new_slide(a["slug"], a["category"], 0.3)
     right = W - MARGIN
@@ -502,6 +599,26 @@ def parse_article(path):
     return meta, paragraphs, formulas, headings
 
 
+GLOSSARY = {k: v for k, v in json.load(
+    open(os.path.join(ROOT, "content/glossary.json"), encoding="utf-8")
+).items() if not k.startswith("_")}
+
+
+def terms_in(texts, limit=2):
+    """מונחים מהמילון שמופיעים בטקסט הגלוי של הקרוסלה, לפי סדר הופעתם.
+
+    מוגבל לשניים: שלושה שקפי הסבר ברצף הופכים קרוסלה לשיעור ולא לכתבה.
+    הגבול הוא על מה שנראה בקרוסלה בלבד — מונח שמופיע רק בחלק בתשלום
+    לא מקבל שקף, כי אף אחד לא ייתקל בו שם."""
+    blob = "\n".join(t for t in texts if t)
+    found = []
+    for term, g in GLOSSARY.items():
+        m = re.search(r"(?<![A-Za-z0-9-])%s(?![A-Za-z0-9-])" % re.escape(term), blob)
+        if m:
+            found.append((m.start(), term, g))
+    return [(t, g) for _, t, g in sorted(found, key=lambda x: x[0])][:limit]
+
+
 def build(slug_filter=None, with_toc=True):
     cfg = json.load(open(os.path.join(ROOT, "site.config.json"), encoding="utf-8"))
     src = os.path.join(ROOT, "content/articles")
@@ -540,15 +657,28 @@ def build(slug_filter=None, with_toc=True):
                 sentence = sentence.strip()
                 if len(sentence) >= 45 and sentence in paid_prose:
                     raise SystemExit("דליפה: משפט בתשלום הגיע לשקף של %s\n  %s" % (slug, sentence[:70]))
-        plan = ["hero" if hero else "hook"]
+        # מונחים באנגלית מוסברים לפני שנתקלים בהם — אחרי הפתיחה,
+        # ולפני הגוף. ההסבר קודם למספר, לא אחריו.
+        terms = terms_in([a["title"], a["dek"]] + body_texts + headings
+                         + ([formulas[0]] if formulas else []))
+
+        # הקרס נשאר ראשון — הוא עוצר הגלילה. ההסבר בא מיד אחריו, לפני
+        # אריחי המספרים, כי התוויות שלהם כבר משתמשות במונח.
+        plan = [("hero", None) if hero else ("hook", None)]
+        for term, g in terms:
+            plan.append(("term", (term, g)))
+            if g.get("formula"):
+                plan.append(("math", (term, g)))
         if stats:
-            plan.append("stats")
-        plan += ["body"] * len(body_texts)
-        if formulas:
-            plan.append("formula")
+            plan.append(("stats", None))
+        plan += [("body", t) for t in body_texts]
+        # נוסחת הכתבה נדלגת אם שקף "איך מחשבים" של מונח כבר הציג אותה
+        covered = any(term in formulas[0] for term, g in terms if g.get("formula")) if formulas else False
+        if formulas and not covered:
+            plan.append(("formula", formulas[0].strip()))
         if with_toc and headings:
-            plan.append("toc")
-        plan.append("cta")
+            plan.append(("toc", headings))
+        plan.append(("cta", None))
         total = len(plan)
 
         out_dir = os.path.join(OUT, slug)
@@ -556,27 +686,29 @@ def build(slug_filter=None, with_toc=True):
         for f in os.listdir(out_dir):
             os.remove(os.path.join(out_dir, f))
 
-        bi = 0
-        for i, kind in enumerate(plan, 1):
+        for i, (kind, payload) in enumerate(plan, 1):
             if kind == "hook":
                 img = slide_hook(a, i, total)
             elif kind == "hero":
                 img = slide_hero(a, hero[0], hero[1], i, total)
             elif kind == "stats":
                 img = slide_stats(a, stats, i, total)
+            elif kind == "term":
+                img = slide_term(a, payload[0], payload[1], i, total)
+            elif kind == "math":
+                img = slide_term_math(a, payload[0], payload[1], i, total)
             elif kind == "body":
-                img = slide_body(a, body_texts[bi], i, total)
-                bi += 1
+                img = slide_body(a, payload, i, total)
             elif kind == "formula":
-                img = slide_formula(a, formulas[0].strip(), i, total)
+                img = slide_formula(a, payload, i, total)
             elif kind == "toc":
-                img = slide_toc(a, headings, i, total)
+                img = slide_toc(a, payload, i, total)
             else:
                 img = slide_cta(a, cfg, i, total)
             img.convert("RGB").save(os.path.join(out_dir, "%02d.png" % i), quality=95)
 
         made += 1
-        print("  %-22s %d שקפים" % (slug, total))
+        print("  %-22s %d שקפים%s" % (slug, total, ("  ← " + ", ".join(t for t, _ in terms)) if terms else ""))
 
     print("\n[ok] %d קרוסלות ב-social/out/" % made)
 
