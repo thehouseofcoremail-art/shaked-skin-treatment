@@ -405,7 +405,7 @@ def slide_toc(a, headings, index, total):
     img, d = new_slide(a["slug"], a["category"], 0.3)
     right = W - MARGIN
     maxw = W - MARGIN * 2 - 70
-    chrome(img, d, a, "// THE MARGIN", index, total, "למנויות")
+    chrome(img, d, a, "// THE MARGIN", index, total, "למנויים")
 
     items = headings[:6]
     wrapped = [wrap(h, BODY(37), maxw)[:2] for h in items]

@@ -225,7 +225,7 @@
     $$("[data-member-only]").forEach(function (el) { el.hidden = !state.member; });
     $$("[data-guest-only]").forEach(function (el) { el.hidden = state.member; });
     $$("[data-email-slot]").forEach(function (el) { el.textContent = state.email || "—"; });
-    $$("[data-plan-slot]").forEach(function (el) { el.textContent = state.plan || (state.member ? "פעיל" : "אורחת"); });
+    $$("[data-plan-slot]").forEach(function (el) { el.textContent = state.plan || (state.member ? "פעיל" : "אורח"); });
     $$("[data-demo-only]").forEach(function (el) { el.hidden = !state.demo; });
   }
 
@@ -274,7 +274,7 @@
         demoBtn.textContent = "פתיחת הכתבה (הדגמה)";
         demoBtn.addEventListener("click", function () {
           fetch("../../data/bodies.demo.json").then(function (r) { return r.json(); }).then(function (map) {
-            if (map[slug]) reveal(map[slug], "מצב הדגמה — כך נראית הכתבה למנויה משלמת.");
+            if (map[slug]) reveal(map[slug], "מצב הדגמה — כך נראית הכתבה למנוי משלם.");
             else say($("[data-gate-msg]", gateEl), "אין גוף כתבה בתצוגה המקדימה.", "err");
           }).catch(function () {
             say($("[data-gate-msg]", gateEl), "מצב הדגמה: הגוף המלא מוגש מהשרת בלבד.", "err");

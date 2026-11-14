@@ -83,7 +83,7 @@ export const json = (data, status = 200, headers = {}) =>
 
 export const bad = (message, status = 400) => json({ error: message }, status);
 
-/** מחזיר את רשומת המנויה מ-KV אם העוגייה תקפה והמנוי פעיל. */
+/** מחזיר את רשומת המנוי מ-KV אם העוגייה תקפה והמנוי פעיל. */
 export async function currentMember(context) {
   const { request, env } = context;
   if (!env.SESSION_SECRET || !env.MEMBERS) return null;

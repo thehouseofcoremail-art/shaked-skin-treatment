@@ -198,7 +198,7 @@ function coverSvg(slug, category) {
       const rad = r1(3 + rand() * 9);
       marks.push(`<circle cx="${x}" cy="${y}" r="${rad}" opacity="${r1(0.18 + rand() * 0.38)}"/>`);
     }
-    // הנקודה שלכן: היחידה בענבר, ומלאה
+    // הנקודה שלכם: היחידה בענבר, ומלאה
     const [mx, my] = pts[Math.floor(rand() * pts.length)];
     marks.push(`<circle cx="${mx}" cy="${my}" r="13" fill="#F0B429" stroke="none" opacity=".85"/>`);
     marks.push(`<circle cx="${mx}" cy="${my}" r="26" stroke="#F0B429" opacity=".45"/>`);
@@ -332,7 +332,7 @@ function footer(depth) {
 
 /* ---------------------------------------------------------- components */
 const lockChip = (a) =>
-  a.premium ? '<span class="chip chip--lock">למנויות</span>' : '<span class="chip chip--free">פתוח</span>';
+  a.premium ? '<span class="chip chip--lock">למנויים</span>' : '<span class="chip chip--free">פתוח</span>';
 
 function storyCard(a, depth, size = "sm") {
   const r = rel(depth);
@@ -436,7 +436,7 @@ const CALCS = {
   },
   pricing: {
     title: "תמחור",
-    sub: "מה את חייבת לגבות",
+    sub: "מה אתם חייבים לגבות",
     blurb: "המחיר לראש שמכסה את העלויות ואת הרווח שהצבת כיעד.",
     slug: "pricing",
     fields: [
@@ -621,7 +621,7 @@ ${ticker(stats)}
 </div></section>
 
 <section class="section section--tools"><div class="wrap">
-  <div class="section-head"><h2>הכלים</h2><span class="rule"></span><span class="mono mono--accent">פתוחים לכולן</span></div>
+  <div class="section-head"><h2>הכלים</h2><span class="rule"></span><span class="mono mono--accent">פתוחים לכולם</span></div>
   <p class="lede-p">שלושה מחשבונים שעונים על שלוש השאלות שחוזרות הכי הרבה. הכול רץ בדפדפן שלך — שום מספר לא נשלח לשרת.</p>
   <div class="tools-row">
     ${[["calc", "unit", "unit-economics"], ["churn", "churn", "churn"], ["tag", "pricing", "pricing"]].map(([ic, key, slug]) => `
@@ -638,7 +638,7 @@ ${ticker(stats)}
 <section class="section"><div class="wrap">
   <div class="section-head"><h2>מה יש כאן</h2><span class="rule"></span></div>
   <div class="value">
-    <div><div>${icon("model")}</div><h3>מודלים, לא סיסמאות</h3><p>כל ניתוח מגיע עם הנוסחה ועם ההנחות גלויות. מחליפים במספרים שלכן ומקבלים תשובה על העסק שלכן, לא על עסק ממוצע.</p></div>
+    <div><div>${icon("model")}</div><h3>מודלים, לא סיסמאות</h3><p>כל ניתוח מגיע עם הנוסחה ועם ההנחות גלויות. מחליפים במספרים שלכם ומקבלים תשובה על העסק שלכם, לא על עסק ממוצע.</p></div>
     <div><div>${icon("shield")}</div><h3>בלי ספונסרים</h3><p>אין תוכן ממומן, אין עמלות על מערכות ניהול ואין המלצות בתשלום. ההכנסה היחידה היא המנויים — ולכן מותר לכתוב גם את מה שלא נוח.</p></div>
     <div><div>${icon("week")}</div><h3>פעם בשבוע</h3><p>גיליון אחד, נושא אחד, בלי ניוזלטר יומי שאף אחד לא קורא. זמן קריאה מוצהר מראש על כל כתבה.</p></div>
     <div><div>${icon("archive")}</div><h3>ארכיון וכלים</h3><p>גישה מלאה לכל ${articles.length} הניתוחים ולשלושת המחשבונים, מהרגע הראשון של המנוי.</p></div>
@@ -702,7 +702,7 @@ function articlePage(a, idx) {
 <div class="wrap"><div class="gate" id="gate" data-slug="${a.slug}">
   <p class="meter" data-meter hidden></p>
   <span class="mono mono--accent">המשך הכתבה</span>
-  <h2>שאר הניתוח פתוח למנויות</h2>
+  <h2>שאר הניתוח פתוח למנויים</h2>
   <p>נשארו עוד ${Math.max(1, a.readingTime - 2)} דקות קריאה: הנוסחאות, המספרים והצעדים המעשיים.</p>
   <ul>
     <li>המודל המלא וההנחות שמאחוריו</li>
@@ -715,7 +715,7 @@ function articlePage(a, idx) {
     <button class="btn btn--ghost" type="button" data-unlock hidden>שימוש בקריאה חינם</button>
   </div>
   <p class="msg" data-gate-msg></p>
-  <p class="gate-note">כבר מנויה? <a href="../../account/index.html">כניסה עם מייל</a> · <a href="../../subscribe/index.html">כל המסלולים</a></p>
+  <p class="gate-note">כבר מנוי? <a href="../../account/index.html">כניסה עם מייל</a> · <a href="../../subscribe/index.html">כל המסלולים</a></p>
 </div></div>`
     : "";
   return `${head({ title: a.title, desc: a.dek, depth: 2, path: `a/${a.slug}/`, jsonld })}
@@ -792,7 +792,7 @@ ${masthead(1)}
 <section class="hero hero--slim">
   <canvas class="contours" aria-hidden="true"></canvas>
   <div class="wrap hero-in">
-    <div class="kicker"><span class="chip chip--free">פתוח לכולן</span><span class="rule"></span><span class="mono">3 כלים</span></div>
+    <div class="kicker"><span class="chip chip--free">פתוח לכולם</span><span class="rule"></span><span class="mono">3 כלים</span></div>
     <h1>המספרים שלך, לא של מישהו אחר</h1>
     <p class="dek">שלושה מחשבונים שרצים בדפדפן שלך. שום נתון לא נשלח לשרת ולא נשמר אצלי.</p>
   </div>
@@ -826,13 +826,13 @@ const TOOL_HELP = {
   ],
   churn: [
     ["לקוחות פעילות", "מי שנכנסה לפחות פעם אחת בחודש שקדם. לא מי שרשומה במערכת."],
-    ["נטשו החודש", "מנוי שלא חודש, או לקוחה שלא נכנסה מעל התקופה שהגדרתן כנטישה."],
+    ["נטשו החודש", "מנוי שלא חודש, או לקוחה שלא נכנסה מעל התקופה שהגדרתם כנטישה."],
     ["תרומה חודשית ללקוחה", "ההכנסה החודשית ממנה פחות העלויות המשתנות שהיא גוררת."],
-    ["עלות גיוס", "כל ההוצאה על גיוס חלקי מספר הלקוחות המשלמות שנוצרו ממנה — כולל הזמן שלכן."],
+    ["עלות גיוס", "כל ההוצאה על גיוס חלקי מספר הלקוחות המשלמות שנוצרו ממנה — כולל הזמן שלכם."],
   ],
   pricing: [
-    ["עלות קבועה חודשית", "שכירות, ארנונה, חשמל, תוכנה, ביטוח, רואה חשבון והשכר שלכן."],
-    ["מלאות יעד", "לא המלאות של היום — זו שאתן מתכננות להגיע אליה ומאמינות בה."],
+    ["עלות קבועה חודשית", "שכירות, ארנונה, חשמל, תוכנה, ביטוח, רואה חשבון והשכר שלכם."],
+    ["מלאות יעד", "לא המלאות של היום — זו שאתם מתכננים להגיע אליה ומאמינים בה."],
     ["רווח יעד חודשי", "מה שצריך להישאר אחרי הכול. אם משאירים אפס, מקבלים מחיר איזון בלבד."],
     ["המחיר שלך היום", "ההכנסה בפועל לכניסה, כדי לראות את הפער."],
   ],
@@ -847,7 +847,7 @@ ${masthead(2)}
 <section class="hero hero--slim">
   <canvas class="contours" aria-hidden="true"></canvas>
   <div class="wrap hero-in">
-    <div class="kicker"><span class="chip chip--free">פתוח לכולן</span><span class="rule"></span><span class="mono">מחשבון</span></div>
+    <div class="kicker"><span class="chip chip--free">פתוח לכולם</span><span class="rule"></span><span class="mono">מחשבון</span></div>
     <h1>${esc(c.title)}</h1>
     <p class="dek">${esc(c.blurb)}</p>
   </div>
@@ -939,8 +939,8 @@ ${masthead(1)}
   <div class="section-head"><h2>החשבון שלי</h2><span class="rule"></span></div>
 
   <div class="panel" data-guest-only hidden>
-    <div class="status-line"><span class="chip">אורחת</span><span class="mono">לא מחוברת</span></div>
-    <p class="lede-p">אין סיסמאות. מזינות מייל ומקבלות קישור כניסה חד-פעמי.</p>
+    <div class="status-line"><span class="chip">אורח</span><span class="mono">לא מחובר</span></div>
+    <p class="lede-p">אין סיסמאות. מזינים מייל ומקבלים קישור כניסה חד-פעמי.</p>
     <form class="inline-form" data-post="/login" style="margin-block-start:1.25rem">
       <div class="field">
         <label for="login-email">המייל שאיתו נרשמת</label>
@@ -949,7 +949,7 @@ ${masthead(1)}
       <button class="btn btn--solid" type="submit">שליחת קישור</button>
       <p class="msg"></p>
     </form>
-    <p class="gate-note" style="margin-block-start:1.25rem">עוד לא מנויה? <a href="../subscribe/index.html">המסלולים כאן</a></p>
+    <p class="gate-note" style="margin-block-start:1.25rem">עוד לא מנוי? <a href="../subscribe/index.html">המסלולים כאן</a></p>
   </div>
 
   <div class="panel" data-member-only hidden>

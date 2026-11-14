@@ -6,7 +6,7 @@ export async function onRequestGet(context) {
   const html = BODIES[slug];
   if (!html) return json({ error: "not found" }, 404);
 
-  // מנויה פעילה: גישה מלאה
+  // מנוי פעיל: גישה מלאה
   const member = await currentMember(context);
   if (member) return json({ html, via: "subscription" });
 
