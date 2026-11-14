@@ -1,0 +1,10 @@
+node_modules/
+.wrangler/
+.dev.vars
+
+# נבנה רק לתצוגה מקדימה ומכיל את גוף הכתבות בתשלום. לא לעלות לאתר החי.
+public/data/bodies.demo.json
+
+# תוצר לוואי של ייבוא build_social מתוך build_profile
+__pycache__/
+*.pyc
